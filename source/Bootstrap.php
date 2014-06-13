@@ -41,4 +41,13 @@ $app->get(
     }
 );
 
+$app->get(
+    '/qrcode-demo.png',
+    function () {
+        require_once __DIR__.'/../legacy-vendor/phpqrcode/qrlib.php';
+        $image = QRcode::png('Hello World');
+        return new \Symfony\Component\HttpFoundation\Response($image, 200, array('content-type' => 'image/png'));
+    }
+);
+
 return $app;
