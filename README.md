@@ -54,6 +54,8 @@ Then run
     sudo ln -s /etc/nginx/sites-available/soundvenir.com /etc/nginx/sites-enabled/
     cd /opt
     git clone git@github.com:manuelkiessling/soundvenir-backend.git ./soundvenir.com
+    cd /opt/soundvenir.com
+    composer install
     sudo service php5-fpm restart
     sudo service nginx restart
 
