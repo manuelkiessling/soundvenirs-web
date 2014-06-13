@@ -14,11 +14,14 @@ class ApiLocationsTest extends WebTestCase
         return $app;
     }
 
-    public function test()
+    public function testGetAllLocations()
     {
         $client = $this->createClient();
         $client->request('GET', '/api/locations');
         $content = $client->getResponse()->getContent();
-        $this->assertEquals('Hello World', $content);
+        $this->assertEquals(
+            '[{"id":1,"title":"foo","lat":11.1,"long":1.11},{"id":2,"title":"bar","lat":22.2,"long":2.22}]',
+            $content
+        );
     }
 }
