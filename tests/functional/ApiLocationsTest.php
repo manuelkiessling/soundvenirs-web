@@ -4,7 +4,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 use Silex\WebTestCase;
 
-class GetLocationsTest extends WebTestCase
+class ApiLocationsTest extends WebTestCase
 {
     public function createApplication()
     {
