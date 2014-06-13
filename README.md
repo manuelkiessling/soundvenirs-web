@@ -1,5 +1,7 @@
 # Soundvenir Website and Backend
 
+[![Build Status](https://travis-ci.org/manuelkiessling/soundvenir-backend.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenir-backend)
+
 ## Installation
 
 ### Requirements
