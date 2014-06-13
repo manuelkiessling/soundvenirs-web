@@ -17,7 +17,8 @@ class ApiLocationsTest extends WebTestCase
     public function test()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/locations');
-        $this->assertTrue($client->getResponse()->isOk());
+        $client->request('GET', '/api/locations');
+        $content = $client->getResponse()->getContent();
+        $this->assertEquals('Hello World', $content);
     }
 }
