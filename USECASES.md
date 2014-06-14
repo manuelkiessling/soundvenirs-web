@@ -47,7 +47,7 @@ JSON example:
 * Backend creates sound entity with uuid, title and mp3 file name, writes mp3 file to disk
 * Website displays the QR code of the uuid of uploaded sound
 * Artist prints QR code, visits target location, pins QR code image at target location
-* Artist uses app to scan QR code, app sends a POST request to `www.soundvenirs.com/api/sound/:uuid`,
+* Artist uses app to scan QR code, app sends a POST request to `www.soundvenirs.com/api/sounds/:uuid`,
   with a `location` object that has the lat and long of the current device position
 * Backend has not yet set a location for the sound with this `uuid` and therefore creates a new `location` entity
   and sets the location attribute of the sound entity to the `location` entity
@@ -61,10 +61,10 @@ JSON example:
   all `location` entities the system knows about
 * App displays all locations on map
 * User visits one of the locations and finds the QR code image
-* User scans QR code image using the app, app sends a POST request to `www.soundvenirs.com/api/sound/:uuid`,
+* User scans QR code image using the app, app sends a POST request to `www.soundvenirs.com/api/sounds/:uuid`,
   with a `location` object that has the lat and long of the current device position
 * Backend already knows the location for the sound with the given `uuid`, therefore does nothing and responds with
   `false`, which the app interprets as "location of sound known, sound can be retrieved"
-* App sends a GET request to `www.soundvenirs.com/api/sound/:uuid`, which responds with the `sound` entity with the
+* App sends a GET request to `www.soundvenirs.com/api/sounds/:uuid`, which responds with the `sound` entity with the
   given `uuid`
 * App downloads mp3 file from URL at `sound.mp3url` and plays sound
