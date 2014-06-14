@@ -30,15 +30,10 @@ $app->get(
 $app->get(
     '/api/sounds/{id}',
     function (\Silex\Application $app, $id) {
-        return $app->json(
-            array(
-                'id' => (int)$id,
-                'title' => 'first sound',
-                'lat' => 11.1,
-                'long' => 1.11,
-                'mp3Url' => '/mp3/1/first_sound.mp3'
-            )
-        );
+        $row = $app['db']->fetchAssoc('SELECT * FROM sounds WHERE uuid = ?', array($id));
+        $row['lat'] = (float)$row['lat'];
+        $row['long'] = (float)$row['long'];
+        return $app->json($row);
     }
 );
 

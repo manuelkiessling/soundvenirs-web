@@ -15,7 +15,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
         $client->request('GET', '/api/sounds/1');
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '{"uuid":1,"title":"First Song","lat":11.1,"long":1.11,"mp3Url":"http:\/\/foo\/bar"}',
+            '{"uuid":"1","title":"First Song","lat":11.1,"long":1.11,"mp3url":"http:\/\/foo\/bar"}',
             $content
         );
     }
