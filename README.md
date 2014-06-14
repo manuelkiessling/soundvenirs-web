@@ -1,6 +1,6 @@
-# Soundvenir Website and Backend
+# Soundvenirs Website and Backend
 
-[![Build Status](https://travis-ci.org/manuelkiessling/soundvenir-backend.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenir-backend)
+[![Build Status](https://travis-ci.org/manuelkiessling/soundvenirs-backend.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenirs-backend)
 
 ## Installation
 
@@ -23,16 +23,16 @@
 
 Set `listen` to `127.0.0.1:9001` in `/etc/php5/fpm/pool.d/www.conf`.
 
-Create `/etc/nginx/sites-available/soundvenir.com` with the following content:
+Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
 
     server {
-        server_name www.soundvenir.com soundvenir.com;
+        server_name www.soundvenirs.com soundvenirs.com;
         listen 80;
-        access_log /var/log/nginx/soundvenir.com.access.log;
-        error_log /var/log/nginx/soundvenir.com.error.log;
+        access_log /var/log/nginx/soundvenirs.com.access.log;
+        error_log /var/log/nginx/soundvenirs.com.error.log;
         charset utf-8;
     
-        root /opt/soundvenir.com/public;
+        root /opt/soundvenirs.com/public;
         index index.php;
     
         location ~ \.php$ {
@@ -52,10 +52,10 @@ Create `/etc/nginx/sites-available/soundvenir.com` with the following content:
 
 Then run
 
-    sudo ln -s /etc/nginx/sites-available/soundvenir.com /etc/nginx/sites-enabled/
+    sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
     cd /opt
-    git clone git@github.com:manuelkiessling/soundvenir-backend.git ./soundvenir.com
-    cd /opt/soundvenir.com
+    git clone git@github.com:manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
+    cd /opt/soundvenirs.com
     composer install
     sudo service php5-fpm restart
     sudo service nginx restart
