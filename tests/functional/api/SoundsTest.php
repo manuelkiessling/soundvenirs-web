@@ -1,26 +1,21 @@
 <?php
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../SoundvenirsWebTestCase.php';
 
-use Silex\WebTestCase;
-
-class ApiSoundsTest extends WebTestCase
+class ApiSoundsTest extends SoundvenirsWebTestCase
 {
-    public function createApplication()
-    {
-        $app = require __DIR__ . '/../../../source/Bootstrap.php';
-        $app['debug'] = true;
-        $app['exception_handler']->disable();
-        return $app;
-    }
-
     public function testGetSoundById()
     {
+        $this->resetDatabase();
+        $this->app['db']->query(
+            'INSERT INTO sounds (uuid, title, lat, long, mp3url)
+            VALUES ("1", "First Song", 11.1, 1.11, "http://foo/bar");'
+        );
         $client = $this->createClient();
         $client->request('GET', '/api/sounds/1');
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '{"id":1,"title":"first sound","lat":11.1,"long":1.11,"mp3Url":"\/mp3\/1\/first_sound.mp3"}',
+            '{"uuid":1,"title":"First Song","lat":11.1,"long":1.11,"mp3Url":"http:\/\/foo\/bar"}',
             $content
         );
     }
