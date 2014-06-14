@@ -1,11 +1,13 @@
 # Entity definitions
 
-## Sound entity
+## Sound
 
 * `uuid`: string, unique id
 * `title`: string, name of sound
 * `location`: `location` entity, depicts position of sound; `null` if sound has not yet been tagged with a position
 * `mp3url`: string, fully qualified URL to mp3 sound file
+
+API endpoint: `http://www.soundvenirs.com/api/sounds`
 
 JSON examples:
 
@@ -27,7 +29,9 @@ JSON examples:
     }
 
 
-## Location entity
+## Location
+
+API endpoint: none
 
 * `lat`: float, latitude of sound position
 * `long`: float, longitude of sound position
@@ -40,6 +44,24 @@ JSON example:
     }
 
 
+## SoundLocation
+
+API endpoint: `http://www.soundvenirs.com/api/soundLocations`
+
+* `title`: string, title of `sound` entity at position
+* `location`: `location` entity, depicts position of sound
+
+JSON example:
+
+    {
+      "title": "The Sound of Silence",
+      "location": {
+        "lat": 51.394747,
+        "long": 6.494785
+      },
+    }
+
+
 # Case 1: Creating a new sound
 
 * Artist creates mp3 sound file
@@ -48,7 +70,7 @@ JSON example:
 * Website displays the QR code of the uuid of uploaded sound
 * Artist prints QR code, visits target location, pins QR code image at target location
 * Artist uses app to scan QR code, app sends a POST request to `www.soundvenirs.com/api/sounds/:uuid`,
-  with a `location` object that has the lat and long of the current device position
+  with a `location` entity that has the lat and long of the current device position
 * Backend has not yet set a location for the sound with this `uuid` and therefore creates a new `location` entity
   and sets the location attribute of the sound entity to the `location` entity
 * Backend responds with `true`, which the app interprets as "location has been set, do not retrieve sound"
@@ -57,9 +79,10 @@ JSON example:
 # Case 2: Consuming a sound
 
 * User uses app to list sounds in the proximity
-* App sends a GET request to `www.soundvenirs.com/api/locations`, backend responds with an array of
-  all `location` entities the system knows about
-* App displays all locations on map
+* App sends a GET request to `www.soundvenirs.com/api/soundLocations`, backend responds with an array of
+  all `soundLocation` entities the system knows about, that is, a position with a title for all sounds that already
+  have a location set
+* App displays all (nearby) sound locations on map
 * User visits one of the locations and finds the QR code image
 * User scans QR code image using the app, app sends a POST request to `www.soundvenirs.com/api/sounds/:uuid`,
   with a `location` object that has the lat and long of the current device position
