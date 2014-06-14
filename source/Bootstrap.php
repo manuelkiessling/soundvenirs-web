@@ -16,6 +16,14 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     ),
 ));
 
+$app->before(function (Request $request) {
+    // Make JSON fields available just like POST parameters
+    if (0 === strpos($request->headers->get('content-type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
+
 $app->get(
     '/api/soundLocations',
     function () use ($app) {
