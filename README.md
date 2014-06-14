@@ -8,6 +8,7 @@
 
 * Ubuntu 12.04
 * git
+* sqlite3
 * php5-fpm
 * php5-gd
 * php5-sqlite
@@ -17,7 +18,7 @@
 ### Setup
 
     cd
-    sudo apt-get install git nginx php5-cli php5-fpm php5-gd php5-sqlite
+    sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
     curl -sS https://getcomposer.org/installer | php
     sudo ln -s ~/composer.phar /usr/local/bin/composer
 
@@ -60,3 +61,18 @@ Then run
     sudo service php5-fpm restart
     sudo service nginx restart
 
+### Database creation
+
+Run
+
+    sqlite3 /var/tmp/soundvenirs.production.sqlite
+
+Then, inside the SQLite shell, run
+
+    CREATE TABLE sounds(
+       uuid CHAR(36) PRIMARY KEY NOT NULL,
+       title TEXT NOT NULL,
+       lat FLOAT NULL,
+       long FLOAT NULL,
+       mp3url TEXT
+    );

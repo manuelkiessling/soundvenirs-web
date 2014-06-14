@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Silex\WebTestCase;
 
@@ -8,7 +8,7 @@ class ApiSoundsTest extends WebTestCase
 {
     public function createApplication()
     {
-        $app = require __DIR__.'/../../source/Bootstrap.php';
+        $app = require __DIR__ . '/../../../source/Bootstrap.php';
         $app['debug'] = true;
         $app['exception_handler']->disable();
         return $app;
