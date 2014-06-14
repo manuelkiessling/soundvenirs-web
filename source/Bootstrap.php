@@ -53,6 +53,10 @@ $app->put(
 $app->post(
     '/api/sounds/{uuid}',
     function (Request $request, $uuid) use ($app) {
+        $row = $app['db']->fetchAssoc('SELECT lat FROM sounds WHERE uuid = ?;', array($uuid));
+        if ($row['lat'] != null) {
+            return $app->json(false);
+        }
         $app['db']->update(
             'sounds',
             array(

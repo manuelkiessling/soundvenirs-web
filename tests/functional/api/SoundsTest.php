@@ -70,4 +70,25 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
             $row
         );
     }
+
+    public function testSetSoundLocationAlreadyDone()
+    {
+        $this->resetDatabase();
+        $client = $this->createClient();
+        $client->request('PUT', '/api/sounds', array('title' => 'First Song'));
+        $content = $client->getResponse()->getContent();
+        $uuid = json_decode($content);
+
+        $client->request('POST', '/api/sounds/'.$uuid, array('lat' => 56.0, 'long' => 6.0));
+        $content = $client->getResponse()->getContent();
+        $status = json_decode($content);
+
+        $this->assertEquals(true, $status);
+
+        $client->request('POST', '/api/sounds/'.$uuid, array('lat' => 56.0, 'long' => 6.0));
+        $content = $client->getResponse()->getContent();
+        $status = json_decode($content);
+
+        $this->assertEquals(false, $status);
+    }
 }
