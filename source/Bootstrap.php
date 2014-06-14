@@ -30,7 +30,7 @@ $app->get(
 $app->get(
     '/api/sounds/{id}',
     function (\Silex\Application $app, $id) {
-        $row = $app['db']->fetchAssoc('SELECT * FROM sounds WHERE uuid = ?', array($id));
+        $row = $app['db']->fetchAssoc('SELECT * FROM sounds WHERE uuid = ?;', array($id));
         $row['lat'] = (float)$row['lat'];
         $row['long'] = (float)$row['long'];
         return $app->json($row);
