@@ -15,8 +15,59 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
         $client->request('GET', '/api/sounds/1');
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '{"uuid":"1","title":"First Song","lat":11.1,"long":1.11,"mp3url":"http:\/\/foo\/bar"}',
+            '{"uuid":"1","title":"First Song","mp3url":"http:\/\/foo\/bar","location":{"lat":11.1,"long":1.11}}',
             $content
+        );
+    }
+
+    public function testCreateNewSound()
+    {
+        $this->resetDatabase();
+        $client = $this->createClient();
+        $client->request('PUT', '/api/sounds', array('title' => 'First Song'));
+        $content = $client->getResponse()->getContent();
+
+        $this->assertRegExp('/^"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"$/', $content);
+
+        $row = $this->app['db']->fetchAssoc('SELECT * FROM sounds LIMIT 1;');
+
+        $this->assertEquals(
+            array(
+                'uuid' => $row['uuid'],
+                'title' => 'First Song',
+                'lat' => null,
+                'long' => null,
+                'mp3url' => 'http://www.soundvenirs.com/download/'.$row['uuid'].'.mp3'
+            ),
+            $row
+        );
+    }
+
+    public function testSetSoundLocation()
+    {
+        $this->resetDatabase();
+        $client = $this->createClient();
+        $client->request('PUT', '/api/sounds', array('title' => 'First Song'));
+        $content = $client->getResponse()->getContent();
+        $uuid = json_decode($content);
+
+        $client->request('POST', '/api/sounds/'.$uuid, array('lat' => 56.0, 'long' => 6.0));
+        $content = $client->getResponse()->getContent();
+        $status = json_decode($content);
+
+        $this->assertEquals(true, $status);
+
+        $row = $this->app['db']->fetchAssoc('SELECT * FROM sounds LIMIT 1;');
+
+        $this->assertEquals(
+            array(
+                'uuid' => $row['uuid'],
+                'title' => 'First Song',
+                'lat' => '56.0',
+                'long' => '6.0',
+                'mp3url' => 'http://www.soundvenirs.com/download/'.$row['uuid'].'.mp3'
+            ),
+            $row
         );
     }
 }
