@@ -41,7 +41,7 @@ $app->get(
     function () use ($app) {
         $form = $app['form.factory']->createBuilder('form')
             ->add('title', 'text')
-            ->add('soundfile', 'file')
+            ->add('soundfile', 'file', array('attr' => array('onchange' => 'this.form.submit()')))
             ->getForm();
         return $app['twig']->render('index.twig', array('form' => $form->createView()));
     }
@@ -58,7 +58,11 @@ $app->post(
       $files = $request->files->get($form->getName());
       $soundfile = $files['soundfile'];
       $data = $form->getData();
-      $uuid = createSound($app, $data['title']);
+      $title = $data['title'];
+      if (is_null($title)) {
+          $title = \basename($soundfile->getClientOriginalName(), '.mp3');
+      }
+      $uuid = createSound($app, $title);
       $soundfile->move('/var/tmp/', 'soundvenirs-'.$uuid.'.mp3');
       return $app['twig']->render('qrcode.twig', array('uuid' => $uuid));
   }
