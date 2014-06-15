@@ -20,6 +20,17 @@ class UploadTest extends SoundvenirsWebTestCase
         unlink('/var/tmp/soundvenirs-'.$row['uuid'].'.mp3');
     }
 
+    public function testWrongFile()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/');
+        $uploadForm = $crawler->selectButton('Upload')->form();
+        $uploadForm['form[soundfile]']->upload(__DIR__.'/../assets/wrongfile.txt');
+        $uploadForm['form[title]'] = 'First Song';
+        $crawler = $client->submit($uploadForm);
+        $this->assertFalse($client->getResponse()->isSuccessful());
+    }
+
     public function testNoTitle()
     {
         $this->resetDatabase();

@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 \date_default_timezone_set('Europe/Berlin');
 
@@ -59,6 +60,10 @@ $app->post(
         $soundfile = $files['soundfile'];
         $data = $form->getData();
         $title = $data['title'];
+        $extension = pathinfo($soundfile->getClientOriginalName(), PATHINFO_EXTENSION);
+        if ($extension !== 'mp3') {
+            return new Response('Only mp3 files are allowed.', 500);
+        }
         if (is_null($title)) {
             $title = \basename($soundfile->getClientOriginalName(), '.mp3');
         }
