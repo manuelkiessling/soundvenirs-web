@@ -48,30 +48,34 @@ $app->get(
 );
 
 $app->post(
-  '/upload',
-  function (Request $request) use ($app) {
-      $form = $app['form.factory']->createBuilder('form')
+    '/upload',
+    function (Request $request) use ($app) {
+        $form = $app['form.factory']->createBuilder('form')
           ->add('title', 'text')
           ->add('soundfile', 'file')
           ->getForm();
-      $form->bind($request);
-      $files = $request->files->get($form->getName());
-      $soundfile = $files['soundfile'];
-      $data = $form->getData();
-      $title = $data['title'];
-      if (is_null($title)) {
-          $title = \basename($soundfile->getClientOriginalName(), '.mp3');
-      }
-      $uuid = createSound($app, $title);
-      $soundfile->move('/var/tmp/', 'soundvenirs-'.$uuid.'.mp3');
-      return $app['twig']->render('qrcode.twig', array('uuid' => $uuid));
-  }
+        $form->bind($request);
+        $files = $request->files->get($form->getName());
+        $soundfile = $files['soundfile'];
+        $data = $form->getData();
+        $title = $data['title'];
+        if (is_null($title)) {
+            $title = \basename($soundfile->getClientOriginalName(), '.mp3');
+        }
+        $uuid = createSound($app, $title);
+        $soundfile->move('/var/tmp/', 'soundvenirs-'.$uuid.'.mp3');
+        return $app['twig']->render('qrcode.twig', array('uuid' => $uuid));
+    }
 );
 
 $app->get(
     '/download/{uuid}.mp3',
     function ($uuid) {
-        return new \Symfony\Component\HttpFoundation\Response(file_get_contents('/var/tmp/soundvenirs-'.$uuid.'.mp3'), 200, array('Content-Type' => 'audio/mpeg'));
+        return new \Symfony\Component\HttpFoundation\Response(
+            file_get_contents('/var/tmp/soundvenirs-'.$uuid.'.mp3'),
+            200,
+            array('Content-Type' => 'audio/mpeg')
+        );
     }
 );
 

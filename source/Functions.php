@@ -1,6 +1,7 @@
 <?php
 
-function createSound(Silex\Application $app, $title) {
+function createSound(Silex\Application $app, $title)
+{
     $uuid = Uuid::generate();
     $app['db']->insert(
         'sounds',
