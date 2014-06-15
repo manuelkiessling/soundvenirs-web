@@ -3,7 +3,7 @@ php:
   - 5.3
 before_script:
   - sudo apt-get update -qq
-  - sudo apt-get install php5-sqlite
+  - sudo apt-get install php5-sqlite php5-uuid php5-gd sqlite3
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
 script:
