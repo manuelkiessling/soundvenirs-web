@@ -24,7 +24,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
     {
         $this->resetDatabase();
         $client = $this->createClient();
-        $client->request('PUT', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
+        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
 
         $this->assertRegExp('/^"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"$/', $content);
@@ -47,7 +47,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
     {
         $this->resetDatabase();
         $client = $this->createClient();
-        $client->request('PUT', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
+        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
         $uuid = json_decode($content);
 
@@ -75,7 +75,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
     {
         $this->resetDatabase();
         $client = $this->createClient();
-        $client->request('PUT', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
+        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
         $uuid = json_decode($content);
 

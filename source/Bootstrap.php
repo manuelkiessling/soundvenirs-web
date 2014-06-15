@@ -8,6 +8,17 @@ require_once __DIR__.'/Uuid.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
+$app['debug'] = true;
+
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/../views',
+));
+
+$app->register(new Silex\Provider\FormServiceProvider());
+
+$app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    'translator.messages' => array(),
+));
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
@@ -23,6 +34,30 @@ $app->before(function (Request $request) {
         $request->request->replace(is_array($data) ? $data : array());
     }
 });
+
+$app->get(
+    '/',
+    function () use ($app) {
+        $form = $app['form.factory']->createBuilder('form')
+            ->add('soundfile', 'file')
+            ->getForm();
+        return $app['twig']->render('index.twig', array('form' => $form->createView()));
+    }
+);
+
+$app->post(
+  '/upload',
+  function (Request $request) use ($app) {
+      $form = $app['form.factory']->createBuilder('form')
+          ->add('soundfile', 'file')
+          ->getForm();
+      $form->bind($request);
+      $files = $request->files->get($form->getName());
+      $soundfile = $files['soundfile'];
+      $soundfile->move('/var/tmp/', $soundfile->getClientOriginalName());
+      return '/var/tmp/'.$soundfile->getClientOriginalName();
+  }
+);
 
 $app->get(
     '/api/soundLocations',
@@ -42,7 +77,7 @@ $app->get(
     }
 );
 
-$app->put(
+$app->post(
     '/api/sounds',
     function (Request $request) use ($app) {
         $uuid = Uuid::generate();
@@ -92,11 +127,11 @@ $app->get(
 );
 
 $app->get(
-    '/qrcode-demo.png',
-    function () {
+    '/qrcode/{uuid}',
+    function ($uuid) {
         require_once __DIR__.'/../legacy-vendor/phpqrcode/qrlib.php';
-        $image = QRcode::png('4dd7b248-5acd-489f-b292-c3fbace30e2c');
-        return new \Symfony\Component\HttpFoundation\Response($image, 200, array('content-type' => 'image/png'));
+        $image = QRcode::png($uuid);
+        return new \Symfony\Component\HttpFoundation\Response($image, 200, array('Content-Type' => 'image/png'));
     }
 );
 
