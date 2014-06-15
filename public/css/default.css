@@ -1,0 +1,57 @@
+html, body {
+    margin: 0;
+    background: url(/images/background1.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#logo {
+    opacity: 0.8;
+    width: 400px;
+    height: 402px;
+    background: url(/images/logo.png) no-repeat;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -201px;
+    margin-left: -200px;
+    padding: 0;
+}
+
+#upload {
+    display: none;
+    width: 400px;
+    height: 402px;
+    background: url(/images/upload-button.png) no-repeat;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -201px;
+    margin-left: -200px;
+    padding: 0;
+}
+
+#qrcode {
+    display: none;
+    width: 400px;
+    height: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -200px;
+    padding: 0;
+}
+
+#form {
+    margin: 0;
+    padding: 0;
+    opacity: 0.00001;
+}
+
+#form_soundfile {
+    width: 400px;
+    height: 402px;
+}

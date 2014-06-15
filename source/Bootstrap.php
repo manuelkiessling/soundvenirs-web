@@ -97,7 +97,7 @@ $app->post(
     '/api/sounds',
     function (Request $request) use ($app) {
         $uuid = createSound($app, $request->get('title'));
-        return $app->json($uuid);
+        return $app->json(array('uuid' => $uuid));
     }
 );
 
@@ -106,7 +106,7 @@ $app->post(
     function (Request $request, $uuid) use ($app) {
         $row = $app['db']->fetchAssoc('SELECT lat FROM sounds WHERE uuid = ?;', array($uuid));
         if ($row['lat'] != null) {
-            return $app->json(false);
+            return $app->json(array('status' => false));
         }
         $app['db']->update(
             'sounds',
@@ -116,7 +116,7 @@ $app->post(
             ),
             array('uuid' => $uuid)
         );
-        return $app->json(true);
+        return $app->json(array('status' => true));
     }
 );
 

@@ -27,7 +27,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
         $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
 
-        $this->assertRegExp('/^"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"$/', $content);
+        $this->assertRegExp('/^\{"uuid":"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"\}$/', $content);
 
         $row = $this->app['db']->fetchAssoc('SELECT * FROM sounds LIMIT 1;');
 
@@ -49,11 +49,13 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
         $client = $this->createClient();
         $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
-        $uuid = json_decode($content);
+        $result = json_decode($content);
+        $uuid = $result->uuid;
 
         $client->request('POST', '/api/sounds/'.$uuid, array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"lat":56.0,"long":6.0}');
         $content = $client->getResponse()->getContent();
-        $status = json_decode($content);
+        $result = json_decode($content);
+        $status = $result->status;
 
         $this->assertEquals(true, $status);
 
@@ -77,17 +79,20 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
         $client = $this->createClient();
         $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
-        $uuid = json_decode($content);
+        $result = json_decode($content);
+        $uuid = $result->uuid;
 
         $client->request('POST', '/api/sounds/'.$uuid, array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"lat":56.0,"long":6.0}');
         $content = $client->getResponse()->getContent();
-        $status = json_decode($content);
+        $result = json_decode($content);
+        $status = $result->status;
 
         $this->assertEquals(true, $status);
 
         $client->request('POST', '/api/sounds/'.$uuid, array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"lat":56.0,"long":6.0}');
         $content = $client->getResponse()->getContent();
-        $status = json_decode($content);
+        $result = json_decode($content);
+        $status = $result->status;
 
         $this->assertEquals(false, $status);
     }

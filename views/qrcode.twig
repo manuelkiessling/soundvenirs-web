@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Soundvenirs</title>
-</head>
-<body>
-<img src="/qrcode/{{ uuid }}">
-</body>
+    <head>
+        <title>Soundvenirs</title>
+        <link rel="stylesheet" href="/css/default.css">
+        <script src="/js/bower_components/jquery/dist/jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#qrcode').fadeTo(3000, 0.8);
+            });
+        </script>
+    </head>
+    <body>
+        <div id="qrcode">
+            <img src="/qrcode/{{ uuid }}" width="400" height="400">
+        </div>
+    </body>
 </html>

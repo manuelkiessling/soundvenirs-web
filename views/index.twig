@@ -2,39 +2,19 @@
 <html>
     <head>
         <title>Soundvenirs</title>
-        <style>
-            html, body {
-                margin: 0;
-                background: url(images/background1.jpg) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-            }
-            #upload {
-                opacity: 0.8;
-                width: 400px;
-                height: 402px;
-                background: url(images/upload-button.png) no-repeat;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                margin-top: -201px;
-                margin-left: -200px;
-                padding: 0;
-            }
-            #form {
-                margin: 0;
-                padding: 0;
-                opacity: 0.00001;
-            }
-            #form_soundfile {
-                width: 400px;
-                height: 402px;
-            }
-        </style>
+        <link rel="stylesheet" href="/css/default.css">
+        <script src="/js/bower_components/jquery/dist/jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('#logo').fadeOut(3000);
+                    $('#upload').fadeTo(3000, 0.8);
+                }, 2000);
+            });
+        </script>
     </head>
     <body>
+        <div id="logo"></div>
         <div id="upload">
             <form id="form" action="/upload" method="post" enctype="multipart/form-data">
                 {{ form_widget(form) }}
