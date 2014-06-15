@@ -40,6 +40,7 @@ $app->get(
     '/',
     function () use ($app) {
         $form = $app['form.factory']->createBuilder('form')
+            ->add('title', 'text')
             ->add('soundfile', 'file')
             ->getForm();
         return $app['twig']->render('index.twig', array('form' => $form->createView()));
@@ -50,12 +51,14 @@ $app->post(
   '/upload',
   function (Request $request) use ($app) {
       $form = $app['form.factory']->createBuilder('form')
+          ->add('title', 'text')
           ->add('soundfile', 'file')
           ->getForm();
       $form->bind($request);
       $files = $request->files->get($form->getName());
       $soundfile = $files['soundfile'];
-      $uuid = createSound($app, 'the title');
+      $data = $form->getData();
+      $uuid = createSound($app, $data['title']);
       $soundfile->move('/var/tmp/', 'soundvenirs-'.$uuid.'.mp3');
       return $app['twig']->render('qrcode.twig', array('uuid' => $uuid));
   }

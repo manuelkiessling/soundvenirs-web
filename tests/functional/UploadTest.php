@@ -11,9 +11,11 @@ class UploadTest extends SoundvenirsWebTestCase
         $crawler = $client->request('GET', '/');
         $uploadForm = $crawler->selectButton('Upload')->form();
         $uploadForm['form[soundfile]']->upload(__DIR__.'/../assets/soundfile.mp3');
+        $uploadForm['form[title]'] = 'First Song';
         $crawler = $client->submit($uploadForm);
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $row = $this->app['db']->fetchAssoc('SELECT uuid FROM sounds LIMIT 1;');
+        $row = $this->app['db']->fetchAssoc('SELECT uuid, title FROM sounds LIMIT 1;');
+        $this->assertEquals('First Song', $row['title']);
         $this->assertTrue(file_exists('/var/tmp/soundvenirs-'.$row['uuid'].'.mp3'));
         unlink('/var/tmp/soundvenirs-'.$row['uuid'].'.mp3');
     }
