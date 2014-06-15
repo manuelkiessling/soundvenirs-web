@@ -2,7 +2,7 @@
 
 function createSound(Silex\Application $app, $title)
 {
-    $uuid = Uuid::generate();
+    $uuid = sha1(uniqid('', true));
     $app['db']->insert(
         'sounds',
         array(
