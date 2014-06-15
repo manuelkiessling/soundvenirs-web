@@ -27,7 +27,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
         $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
 
-        $this->assertRegExp('/^\{"uuid":"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"\}$/', $content);
+        $this->assertRegExp('/^\{"uuid":"[0-9a-f]{40}"\}$/', $content);
 
         $row = $this->app['db']->fetchAssoc('SELECT * FROM sounds LIMIT 1;');
 

@@ -11,7 +11,6 @@
 * sqlite3
 * php5-fpm
 * php5-gd
-* php5-uuid
 * php5-sqlite
 * composer
 * nginx
@@ -19,7 +18,7 @@
 ### Setup
 
     cd
-    sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-uuid php5-sqlite
+    sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
     curl -sS https://getcomposer.org/installer | php
     sudo ln -s ~/composer.phar /usr/local/bin/composer
 
