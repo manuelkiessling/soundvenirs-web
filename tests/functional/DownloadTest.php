@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/SoundvenirsWebTestCase.php';
 
-class UploadTest extends SoundvenirsWebTestCase
+class DownloadTest extends SoundvenirsWebTestCase
 {
     public function test()
     {
@@ -12,9 +12,9 @@ class UploadTest extends SoundvenirsWebTestCase
         $uploadForm = $crawler->selectButton('Upload')->form();
         $uploadForm['form[soundfile]']->upload(__DIR__.'/../assets/soundfile.mp3');
         $crawler = $client->submit($uploadForm);
-        $this->assertTrue($client->getResponse()->isSuccessful());
         $row = $this->app['db']->fetchAssoc('SELECT uuid FROM sounds LIMIT 1;');
-        $this->assertTrue(file_exists('/var/tmp/soundvenirs-'.$row['uuid'].'.mp3'));
+        $client->request('GET', '/download/'.$row['uuid'].'.mp3');
+        $this->assertEquals('foo', $client->getResponse()->getContent());
         unlink('/var/tmp/soundvenirs-'.$row['uuid'].'.mp3');
     }
 }

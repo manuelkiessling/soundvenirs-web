@@ -17,7 +17,9 @@ class QrcodeTest extends WebTestCase
     public function testGetCodeImage()
     {
         $client = $this->createClient();
+        ob_start();
         $client->request('GET', '/qrcode/1234');
+        ob_clean();
         $this->assertEquals('image/png', $client->getResponse()->headers->get('content-type'));
     }
 }

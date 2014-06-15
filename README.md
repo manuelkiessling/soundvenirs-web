@@ -77,3 +77,7 @@ Then, inside the SQLite shell, run
        long FLOAT NULL,
        mp3url TEXT
     );
+
+Now, run
+
+    chown www-data:www-data /var/tmp/soundvenirs.production.sqlite

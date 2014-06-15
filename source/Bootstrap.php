@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 \date_default_timezone_set('Europe/Berlin');
 
 require_once __DIR__.'/Uuid.php';
+require_once __DIR__.'/Functions.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
@@ -54,9 +55,17 @@ $app->post(
       $form->bind($request);
       $files = $request->files->get($form->getName());
       $soundfile = $files['soundfile'];
-      $soundfile->move('/var/tmp/', $soundfile->getClientOriginalName());
-      return '/var/tmp/'.$soundfile->getClientOriginalName();
+      $uuid = createSound($app, 'the title');
+      $soundfile->move('/var/tmp/', 'soundvenirs-'.$uuid.'.mp3');
+      return $app['twig']->render('qrcode.twig', array('uuid' => $uuid));
   }
+);
+
+$app->get(
+    '/download/{uuid}.mp3',
+    function ($uuid) {
+        return new \Symfony\Component\HttpFoundation\Response(file_get_contents('/var/tmp/soundvenirs-'.$uuid.'.mp3'), 200, array('Content-Type' => 'audio/mpeg'));
+    }
 );
 
 $app->get(
@@ -80,15 +89,7 @@ $app->get(
 $app->post(
     '/api/sounds',
     function (Request $request) use ($app) {
-        $uuid = Uuid::generate();
-        $app['db']->insert(
-            'sounds',
-            array(
-                'uuid' => $uuid,
-                'title' => $request->get('title'),
-                'mp3url' => 'http://www.soundvenirs.com/download/'.$uuid.'.mp3',
-            )
-        );
+        $uuid = createSound($app, $request->get('title'));
         return $app->json($uuid);
     }
 );
