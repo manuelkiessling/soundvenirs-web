@@ -13,12 +13,15 @@
 * php5-gd
 * php5-sqlite
 * composer
+* npm >= 1.3.11
+* bower
 * nginx
 
 ### Setup
 
     cd
     sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
+    sudo npm install -g bower
     curl -sS https://getcomposer.org/installer | php
     sudo ln -s ~/composer.phar /usr/local/bin/composer
 
@@ -40,6 +43,7 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
         location ~ \.php$ {
             fastcgi_pass 127.0.0.1:9001;
             fastcgi_index index.php;
+            fastcgi_param PHP_VALUE upload_max_filesize=20M;
             include fastcgi_params;
         }
     
@@ -59,6 +63,7 @@ Then run
     git clone git@github.com:manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
     cd /opt/soundvenirs.com
     composer install
+    bower install
     sudo service php5-fpm restart
     sudo service nginx restart
 
