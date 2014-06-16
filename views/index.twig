@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Soundvenirs</title>
-        <link rel="stylesheet" href="/css/default.css">
+        <link rel="stylesheet" href="/css/default.css?0">
         <script src="/js/bower_components/jquery/dist/jquery.js"></script>
         <script>
             $(document).ready(function() {
@@ -24,8 +24,16 @@
                 <input type="submit" value="Upload">
             </form>
         </div>
-        <div id="upload-hint">
-            Click on <em>Upload</em> to upload your mp3 file.
+        <div id="upload-hint" class="hint">
+            Click on <em>Upload</em> to upload your sound as an mp3 file.
+            <br>
+            <br>
+            Afterwards, a QR code will be displayed - simply print
+            the page with the code and place the printed QR code at
+            the target location. Then, while at the target location,
+            scan the code for the first time using the Soundvenirs
+            mobile app. Now visitors at the target location will be
+            able to scan the code and listen to your sound.
         </div>
     </body>
 </html>

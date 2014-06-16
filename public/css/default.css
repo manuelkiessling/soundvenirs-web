@@ -34,16 +34,16 @@ html, body {
     padding: 0;
 }
 
-#upload-hint
+.hint
 {
     display: none;
-    width: 400px;
+    width: 600px;
     text-align: center;
     color: #fff;
     position: fixed;
-    bottom: 20%;
+    bottom: 10%;
     left: 50%;
-    margin-left: -200px;
+    margin-left: -300px;
     padding: 0;
 }
 
@@ -59,6 +59,12 @@ html, body {
     padding: 0;
 }
 
+#print-hint {
+    text-align: center;
+    display: none;
+    color: #000;
+}
+
 #form {
     margin: 0;
     padding: 0;
@@ -68,4 +74,19 @@ html, body {
 #form_soundfile {
     width: 400px;
     height: 402px;
+}
+
+@media print {
+    #qrcode
+    {
+        opacity: 1.0;
+    }
+    #print-hint
+    {
+        display: block;
+    }
+    .noprint
+    {
+        display: none;
+    }
 }
