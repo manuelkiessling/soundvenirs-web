@@ -32,6 +32,7 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
         access_log /var/log/nginx/soundvenirs.com.access.log;
         error_log /var/log/nginx/soundvenirs.com.error.log;
         charset utf-8;
+        client_max_body_size 20M;
     
         root /opt/soundvenirs.com/public;
         index index.php;
