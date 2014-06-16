@@ -27,6 +27,7 @@ html, body {
 #upload {
     display: none;
     height: 402px;
+    width: 400px;
     background: url(/images/upload-button.png) no-repeat;
     position: absolute;
     top: 0;
@@ -57,7 +58,7 @@ html, body {
 #form {
     margin: 0;
     padding: 0;
-    opacity: 0.00001;
+    visibility: hidden;
 }
 
 #form_soundfile {

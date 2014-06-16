@@ -19,12 +19,7 @@
     <body>
         <div id="center">
             <div id="logo"></div>
-            <div id="upload">
-                <form id="form" action="/upload" method="post" enctype="multipart/form-data">
-                    {{ form_widget(form) }}
-                    <input type="submit" value="Upload">
-                </form>
-            </div>
+            <div id="upload" onclick="$('#form_soundfile').click();"></div>
             <div id="upload-hint" class="hint">
                 Click on <em>Upload</em> to upload your sound as an mp3 file.
                 <br>
@@ -36,6 +31,10 @@
                 mobile app. Now visitors at the target location will be
                 able to scan the code and listen to your sound.
             </div>
+            <form id="form" action="/upload" method="post" enctype="multipart/form-data">
+                {{ form_widget(form) }}
+                <input type="submit" value="Upload">
+            </form>
         </div>
     </body>
 </html>
