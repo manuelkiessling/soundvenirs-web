@@ -8,55 +8,44 @@ html, body {
     font-family: Verdana, no-serif;
 }
 
-#logo {
-    opacity: 0.8;
+#center {
     width: 400px;
-    height: 402px;
-    background: url(/images/logo.png) no-repeat;
     position: fixed;
-    top: 50%;
+    top: 100px;
     left: 50%;
-    margin-top: -201px;
     margin-left: -200px;
     padding: 0;
+}
+
+#logo {
+    height: 402px;
+    opacity: 0.8;
+    background: url(/images/logo.png) no-repeat;
+    top: 0;
 }
 
 #upload {
     display: none;
-    width: 400px;
     height: 402px;
     background: url(/images/upload-button.png) no-repeat;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -201px;
-    margin-left: -200px;
-    padding: 0;
+    position: absolute;
+    top: 0;
 }
 
-.hint
-{
+.hint {
     display: none;
-    width: 600px;
     text-align: center;
     color: #fff;
-    position: fixed;
-    bottom: 10%;
-    left: 50%;
-    margin-left: -300px;
-    padding: 0;
+    text-shadow: 1px 1px #777;
+    position: absolute;
+    top: 440px;
 }
 
 #qrcode {
     display: none;
-    width: 400px;
     height: 400px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -200px;
-    margin-left: -200px;
-    padding: 0;
+    position: absolute;
+    top: 0;
 }
 
 #print-hint {
@@ -77,16 +66,13 @@ html, body {
 }
 
 @media print {
-    #qrcode
-    {
+    #qrcode {
         opacity: 1.0;
     }
-    #print-hint
-    {
+    #print-hint {
         display: block;
     }
-    .noprint
-    {
+    .noprint {
         display: none;
     }
 }
