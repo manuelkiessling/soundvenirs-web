@@ -33,6 +33,20 @@ html, body {
     padding: 0;
 }
 
+#upload-hint
+{
+    display: none;
+    width: 400px;
+    text-align: center;
+    font-family: Verdana, no-serif;
+    color: #fff;
+    position: fixed;
+    bottom: 20%;
+    left: 50%;
+    margin-left: -200px;
+    padding: 0;
+}
+
 #qrcode {
     display: none;
     width: 400px;

@@ -10,6 +10,9 @@
                     $('#logo').fadeOut(3000);
                     $('#upload').fadeTo(3000, 0.8);
                 }, 2000);
+                setTimeout(function() {
+                    $('#upload-hint').fadeTo(3000, 0.8);
+                }, 6000);
             });
         </script>
     </head>
@@ -20,6 +23,9 @@
                 {{ form_widget(form) }}
                 <input type="submit" value="Upload">
             </form>
+        </div>
+        <div id="upload-hint">
+            Click on <em>Upload</em> to upload your mp3 file.
         </div>
     </body>
 </html>
