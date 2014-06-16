@@ -21,6 +21,12 @@
 
     cd
     sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
+    wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz
+    tar xvfz node-v0.10.28.tar.gz
+    cd node-v0.10.28
+    ./configure
+    make
+    sudo make install
     sudo npm install -g bower
     curl -sS https://getcomposer.org/installer | php
     sudo ln -s ~/composer.phar /usr/local/bin/composer
