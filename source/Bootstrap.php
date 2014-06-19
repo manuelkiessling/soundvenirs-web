@@ -76,35 +76,12 @@ $app->post(
 
 $app->post(
     '/api/sounds/{uuid}',
-    function (Request $request, $uuid) use ($app) {
-        $row = $app['db']->fetchAssoc('SELECT lat FROM sounds WHERE uuid = ?;', array($uuid));
-        if ($row['lat'] != null) {
-            return $app->json(array('status' => false));
-        }
-        $app['db']->update(
-            'sounds',
-            array(
-                'lat' => $request->get('lat'),
-                'long' => $request->get('long')
-            ),
-            array('uuid' => $uuid)
-        );
-        return $app->json(array('status' => true));
-    }
+    'controller.api.sounds:updateAction'
 );
 
 $app->get(
     '/api/sounds/{uuid}',
-    function (\Silex\Application $app, $uuid) {
-        $row = $app['db']->fetchAssoc('SELECT * FROM sounds WHERE uuid = ?;', array($uuid));
-        $row['location'] = array(
-            'lat' => (float)$row['lat'],
-            'long' => (float)$row['long'],
-        );
-        unset($row['lat']);
-        unset($row['long']);
-        return $app->json($row);
-    }
+    'controller.api.sounds:getOneAction'
 );
 
 $app->get(
