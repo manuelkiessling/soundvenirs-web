@@ -86,11 +86,7 @@ $app->get(
 
 $app->get(
     '/qrcode/{uuid}',
-    function ($uuid) {
-        require_once __DIR__.'/../vendor/t0k4rt/phpqrcode/qrlib.php';
-        $image = QRcode::png($uuid);
-        return new \Symfony\Component\HttpFoundation\Response($image, 200, array('Content-Type' => 'image/png'));
-    }
+    'controller.homepage:qrcodeAction'
 );
 
 return $app;

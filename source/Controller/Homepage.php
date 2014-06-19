@@ -58,4 +58,11 @@ class Homepage
             array('Content-Type' => 'audio/mpeg')
         );
     }
+
+    public function qrcodeAction($uuid)
+    {
+        require_once __DIR__.'/../../vendor/t0k4rt/phpqrcode/qrlib.php';
+        $image = \QRcode::png($uuid);
+        return new Response($image, 200, array('Content-Type' => 'image/png'));
+    }
 }
