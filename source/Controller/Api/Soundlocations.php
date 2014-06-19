@@ -14,7 +14,7 @@ class Soundlocations
         $this->db = $db;
     }
 
-    public function getAction()
+    public function getAllAction()
     {
         $rows = $this->db->fetchAll('SELECT title, lat, long FROM sounds WHERE lat IS NOT NULL;');
         $soundLocations = array();

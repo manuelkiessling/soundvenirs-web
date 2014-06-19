@@ -45,6 +45,10 @@ $app['controller.api.soundlocations'] = $app->share(function () use ($app) {
     return new \Soundvenirs\Controller\Api\Soundlocations($app['db']);
 });
 
+$app['controller.api.sounds'] = $app->share(function () use ($app) {
+    return new \Soundvenirs\Controller\Api\Sounds($app['db']);
+});
+
 $app->get(
     '/',
     'controller.homepage:indexAction'
@@ -62,15 +66,12 @@ $app->get(
 
 $app->get(
     '/api/soundLocations',
-    'controller.api.soundlocations:getAction'
+    'controller.api.soundlocations:getAllAction'
 );
 
 $app->post(
     '/api/sounds',
-    function (Request $request) use ($app) {
-        $uuid = createSound($app, $request->get('title'));
-        return $app->json(array('uuid' => $uuid));
-    }
+    'controller.api.sounds:createAction'
 );
 
 $app->post(
