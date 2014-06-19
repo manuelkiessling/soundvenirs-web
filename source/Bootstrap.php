@@ -41,6 +41,10 @@ $app['controller.homepage'] = $app->share(function () use ($app) {
     return new \Soundvenirs\Controller\Homepage($app['twig'], $app['form.factory']);
 });
 
+$app['controller.api.soundlocations'] = $app->share(function () use ($app) {
+    return new \Soundvenirs\Controller\Api\Soundlocations($app['db']);
+});
+
 $app->get(
     '/',
     'controller.homepage:indexAction'
@@ -58,20 +62,7 @@ $app->get(
 
 $app->get(
     '/api/soundLocations',
-    function () use ($app) {
-        $rows = $app['db']->fetchAll('SELECT title, lat, long FROM sounds WHERE lat IS NOT NULL;');
-        $soundLocations = array();
-        foreach ($rows as $row) {
-            $row['location'] = array(
-                'lat' => (float)$row['lat'],
-                'long' => (float)$row['long'],
-            );
-            unset($row['lat']);
-            unset($row['long']);
-            $soundLocations[] = $row;
-        }
-        return $app->json($soundLocations);
-    }
+    'controller.api.soundlocations:getAction'
 );
 
 $app->post(
