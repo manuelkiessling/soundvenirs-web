@@ -1,7 +1,6 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 \date_default_timezone_set('Europe/Berlin');
 
@@ -10,6 +9,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 $app['debug'] = false;
+
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
@@ -36,51 +37,23 @@ $app->before(function (Request $request) {
     }
 });
 
+$app['controller.homepage'] = $app->share(function () use ($app) {
+    return new \Soundvenirs\Controller\Homepage($app['twig'], $app['form.factory']);
+});
+
 $app->get(
     '/',
-    function () use ($app) {
-        $form = $app['form.factory']->createBuilder('form')
-            ->add('title', 'text')
-            ->add('soundfile', 'file', array('attr' => array('onchange' => 'this.form.submit()')))
-            ->getForm();
-        return $app['twig']->render('index.twig', array('form' => $form->createView()));
-    }
+    'controller.homepage:indexAction'
 );
 
 $app->post(
     '/upload',
-    function (Request $request) use ($app) {
-        $form = $app['form.factory']->createBuilder('form')
-          ->add('title', 'text')
-          ->add('soundfile', 'file')
-          ->getForm();
-        $form->bind($request);
-        $files = $request->files->get($form->getName());
-        $soundfile = $files['soundfile'];
-        $data = $form->getData();
-        $title = $data['title'];
-        $extension = pathinfo($soundfile->getClientOriginalName(), PATHINFO_EXTENSION);
-        if ($extension !== 'mp3') {
-            return new Response('Only mp3 files are allowed.', 500);
-        }
-        if (is_null($title)) {
-            $title = \basename($soundfile->getClientOriginalName(), '.mp3');
-        }
-        $uuid = createSound($app, $title);
-        $soundfile->move('/var/tmp/', 'soundvenirs-'.$uuid.'.mp3');
-        return $app['twig']->render('qrcode.twig', array('uuid' => $uuid));
-    }
+    'controller.homepage:uploadAction'
 );
 
 $app->get(
     '/download/{uuid}.mp3',
-    function ($uuid) {
-        return new \Symfony\Component\HttpFoundation\Response(
-            file_get_contents('/var/tmp/soundvenirs-'.$uuid.'.mp3'),
-            200,
-            array('Content-Type' => 'audio/mpeg')
-        );
-    }
+    'controller.homepage:downloadAction'
 );
 
 $app->get(
