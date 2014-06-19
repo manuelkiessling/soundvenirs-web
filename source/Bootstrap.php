@@ -60,6 +60,11 @@ $app->post(
 );
 
 $app->get(
+    '/qrcode/{uuid}',
+    'controller.homepage:qrcodeAction'
+);
+
+$app->get(
     '/download/{uuid}.mp3',
     'controller.homepage:downloadAction'
 );
@@ -82,11 +87,6 @@ $app->post(
 $app->get(
     '/api/sounds/{uuid}',
     'controller.api.sounds:getOneAction'
-);
-
-$app->get(
-    '/qrcode/{uuid}',
-    'controller.homepage:qrcodeAction'
 );
 
 return $app;
