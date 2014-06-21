@@ -16,3 +16,4 @@ deploy:
   file: soundvenirs-backend.tar.gz
   on:
     repo: manuelkiessling/soundvenirs-backend
+    all_branches: true
