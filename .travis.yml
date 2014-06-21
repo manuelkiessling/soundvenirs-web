@@ -13,6 +13,7 @@ deploy:
   provider: releases
   api_key:
     secure: xw9z37Q/lSLU6zbrn/vB7z2MF8rRGcLscQ+NCapvedAuBzOPdbtUm2nNUruKjPdekPMMkW6JZohYf2svArfhLm5eVeDjoCMZMGViSgFoH/aueA/iUrbNay+rNgaa1TYU1+UZp8E/QKPCRI/VVFg42PRCAi3Ocnjgf3W0dS1AbXk=
+  file: "foo.txt"
   on:
     tags: true
     repo: manuelkiessling/soundvenirs-backend
