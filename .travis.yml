@@ -9,11 +9,13 @@ before_script:
 script:
 - phpunit --stderr tests/
 - ./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./source
+after_success:
+- tar -czf release.tar.gz ./
 deploy:
   provider: releases
   api_key:
     secure: xw9z37Q/lSLU6zbrn/vB7z2MF8rRGcLscQ+NCapvedAuBzOPdbtUm2nNUruKjPdekPMMkW6JZohYf2svArfhLm5eVeDjoCMZMGViSgFoH/aueA/iUrbNay+rNgaa1TYU1+UZp8E/QKPCRI/VVFg42PRCAi3Ocnjgf3W0dS1AbXk=
-  file: "foo.txt"
+  file: "release.tar.gz"
   on:
     tags: true
     repo: manuelkiessling/soundvenirs-backend
