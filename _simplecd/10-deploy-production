@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rsync -avc --exclude build/ --exclude tests/ --exclude .git* $2/ /opt/soundvenirs.com/
+rsync -avc --exclude _simplecd/ --exclude build/ --exclude tests/ --exclude .git* $2/ /opt/soundvenirs.com/
