@@ -16,4 +16,4 @@ env:
   global:
   - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
 after_success:
-- curl -XPOST -s -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/json" --data '{"tag_name":"travisci-build-${TRAVIS_BUILD_NUMBER}"}' https://api.github.com/repos/manuelkiessling/soundvenirs-backend/releases'
+- bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT}
