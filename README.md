@@ -119,4 +119,4 @@ On the production server, a SimpleCD cronjob observes the repository - if a new 
     sudo apt-get install postfix mailutils
     cd /opt
     sudo git clone https://github.com/manuelkiessling/simplecd.git
-    sudo echo "* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-backend.git https://github.com/manuelkiessling/soundvenirs-backend/commit/" > /etc/cron.d/deploy-soundvenirs-backend
+    sudo echo -e "MAILTO=\"\"\n* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-backend.git https://github.com/manuelkiessling/soundvenirs-backend/commit/" > /etc/cron.d/deploy-soundvenirs-backend
