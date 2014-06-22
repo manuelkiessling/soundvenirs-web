@@ -16,4 +16,4 @@ env:
   global:
   - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
 after_success:
-- bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} "See https://travis-ci.org/manuelkiessling/soundvenirs-backend/builds/${TRAVIS_BUILD_ID}"
+- bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-backend/builds/${TRAVIS_BUILD_ID}
