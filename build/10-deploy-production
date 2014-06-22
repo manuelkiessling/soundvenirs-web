@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cd $2
-/usr/local/bin/composer update
-/usr/local/bin/bower --allow-root install
-rsync -avc --exclude _simplecd/ --exclude build/ --exclude tests/ --exclude .git* $2/ /opt/soundvenirs.com/
+/usr/local/bin/composer update \
+  && /usr/local/bin/bower --allow-root install \
+  && rsync -avc --exclude _simplecd/ --exclude build/ --exclude tests/ --exclude .git* $2/ /opt/soundvenirs.com/
