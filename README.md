@@ -113,3 +113,4 @@ Continuous Deployment works by combining GitHub release tags, TravisCI, and a Si
 Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of the project for this revision. If no failures occurs, TravisCI will create a new release for the given revision.
 
 On the production server, a SimpleCD cronjob observes the repository - if a new release is detected, then the revision of this release will be checked out and its content copied to the project folder at */opt/soundvenirs.com*.
+
