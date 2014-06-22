@@ -74,7 +74,7 @@ Then run
     sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
     cd /opt/soundvenirs.com
     sudo composer install
-    sudo bower install
+    sudo bower --allow-root install
     sudo service php5-fpm restart
     sudo service nginx restart
 
