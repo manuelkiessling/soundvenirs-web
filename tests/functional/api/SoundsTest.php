@@ -47,7 +47,7 @@ class ApiSoundsTest extends SoundvenirsWebTestCase
     {
         $this->resetDatabase();
         $client = $this->createClient();
-        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
+        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"Last Song"}');
         $content = $client->getResponse()->getContent();
         $result = json_decode($content);
         $uuid = $result->uuid;
