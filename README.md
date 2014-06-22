@@ -4,7 +4,8 @@
 
 ## Setting up the production server environment
 
-The following describes the steps you must take in order to create an environment which allows the production website and webservice API to be served from this environment.
+The following describes the steps you must take in order to create an environment which allows the production website
+and webservice API to be served from this environment.
 
 ### Requirements
 
@@ -97,22 +98,29 @@ Now, run
 
     sudo chown www-data:www-data /var/tmp/soundvenirs.production.sqlite
 
-If you point the A record for *www.soundvenirs.com* at the IP address of the production server, you are now able to access the website at http://www.soundvenirs.com/.
+If you point the A record for *www.soundvenirs.com* at the IP address of the production server, you are now able to
+access the website at http://www.soundvenirs.com/.
 
 
 ## Continous Deployment setup
 
-The following describes the steps you must take in order to set up a Continous Deployment workflow for the website and webservice API.
+The following describes the steps you must take in order to set up a Continous Deployment workflow for the website and
+webservice API.
 
-As a result, every commit to the *master* branch of *git@github.com:manuelkiessling/soundvenirs-backend.git* that results in a successful TravisCI run will be released to the production server environment.
+As a result, every commit to the *master* branch of *git@github.com:manuelkiessling/soundvenirs-backend.git* that
+results in a successful TravisCI run will be released to the production server environment.
 
 ### The workflow
 
 Continuous Deployment works by combining GitHub release tags, TravisCI, and a SimpleCD cronjob.
 
-Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of the project for this revision. If no failures occurs, TravisCI will create a new release for the given revision, named *travisci-build-<BUILDNUMBER>*.
+Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of
+the project for this revision. If no failures occurs, TravisCI will create a new release for the given revision, named
+*travisci-build-{BUILDNUMBER}*.
 
-On the production server, a SimpleCD cronjob observes the repository - if a new release matching the *travisci-build-<BUILDNUMBER>* pattern is detected, then the revision of this release will be checked out and its content copied to the project folder at */opt/soundvenirs.com*.
+On the production server, a SimpleCD cronjob observes the repository - if a new release matching the
+*travisci-build-{BUILDNUMBER}* pattern is detected, then the revision of this release will be checked out and its
+content copied to the project folder at */opt/soundvenirs.com*.
 
 ### Setting up SimpleCD on the production server
 
