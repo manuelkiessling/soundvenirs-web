@@ -1,6 +1,9 @@
 language: php
 php:
 - 5.3
+branches:
+  only:
+    - master
 before_script:
 - sudo apt-get update -qq
 - sudo apt-get install php5-sqlite php5-gd sqlite3
@@ -9,14 +12,8 @@ before_script:
 script:
 - phpunit --stderr tests/
 - ./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./source
+env:
+  global:
+  - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
 after_success:
-- tar -czf release.tar.gz ./
-deploy:
-  provider: releases
-  api_key:
-    secure: xw9z37Q/lSLU6zbrn/vB7z2MF8rRGcLscQ+NCapvedAuBzOPdbtUm2nNUruKjPdekPMMkW6JZohYf2svArfhLm5eVeDjoCMZMGViSgFoH/aueA/iUrbNay+rNgaa1TYU1+UZp8E/QKPCRI/VVFg42PRCAi3Ocnjgf3W0dS1AbXk=
-  file: "release.tar.gz"
-  on:
-    tags: true
-    repo: manuelkiessling/soundvenirs-backend
-    all_branches: true
+- curl -XPOST -s -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/json" --data '{"tag_name":"travisci-build-${TRAVIS_BUILD_NUMBER}"}' https://api.github.com/repos/manuelkiessling/soundvenirs-backend/releases'
