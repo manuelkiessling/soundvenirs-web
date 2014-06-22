@@ -121,10 +121,10 @@ Continuous Delivery works by combining TravisCI, GitHub release tags, and a Simp
         Developer  +------------> | commit 123456 | +------------> TravisCI                   
                                   |               |                  |                        
                                   |               |                  | Runs build and succeeds
-                                  |               |                  |
+                                  |               |                  |                        
                                   | release xyz   | <----------------/                        
-                                  |     tag xyz   |   creates release                        
-                                  |               |   (which creates tag)                                        
+                                  |     tag xyz   |   creates release                         
+                                  |               |   (which creates tag)                     
                                   +-------+-------+                                           
                                           |                                                   
                                           |                                                   
