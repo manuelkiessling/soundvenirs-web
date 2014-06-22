@@ -102,9 +102,9 @@ If you point the A record for *www.soundvenirs.com* at the IP address of the pro
 access the website at http://www.soundvenirs.com/.
 
 
-## Continous Deployment setup
+## Continuous Delivery setup
 
-The following describes the steps you must take in order to set up a Continous Deployment workflow for the website and
+The following describes the steps you must take in order to set up a Continuous Delivery workflow for the website and
 webservice API.
 
 As a result, every commit to the *master* branch of *git@github.com:manuelkiessling/soundvenirs-backend.git* that
@@ -112,10 +112,39 @@ results in a successful TravisCI run will be released to the production server e
 
 ### The workflow
 
-Continuous Deployment works by combining GitHub release tags, TravisCI, and a SimpleCD cronjob.
+Continuous Delivery works by combining TravisCI, GitHub release tags, and a SimpleCD cronjob.
+
+                                  GITHUB                                                      
+                                  +---------------+                                           
+                                  |               |                                           
+                   push to master |               | pulls commit                              
+        Developer  +------------> | commit 123456 | +------------> TravisCI                   
+                                  |               |                  |                        
+                                  |               |                  | Runs build and succeeds
+                                  |               |                  |
+                                  | release xyz   | <----------------/                        
+                                  |     tag xyz   |   creates release                        
+                                  |               |   (which creates tag)                                        
+                                  +-------+-------+                                           
+                                          |                                                   
+                                          |                                                   
+                                          |                                                   
+                                  SERVER  v                                                   
+                                  +---------------+                                           
+                                  | SimpleCD cron |                                           
+                                  |               |                                           
+                                  | - checks for  |                                           
+                                  |   new tag     |                                           
+                                  |               |                                           
+                                  | - finds new   |                                           
+                                  |   tag xyz     |                                           
+                                  |               |                                           
+                                  | - deploys code|                                           
+                                  |               |                                           
+                                  +---------------+                                           
 
 Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of
-the project for this revision. If no failures occurs, TravisCI will create a new release for the given revision, named
+the project for this revision. If no failures occur, TravisCI will create a new release for the given revision, named
 *travisci-build-{BUILDNUMBER}*.
 
 On the production server, a SimpleCD cronjob observes the repository - if a new release matching the
