@@ -70,10 +70,10 @@ Then run
 
     sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
     cd /opt
-    git clone git@github.com:manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
+    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
     cd /opt/soundvenirs.com
-    composer install
-    bower install
+    sudo composer install
+    sudo bower install
     sudo service php5-fpm restart
     sudo service nginx restart
 
@@ -110,7 +110,12 @@ As a result, every commit to the *master* branch of *git@github.com:manuelkiessl
 
 Continuous Deployment works by combining GitHub release tags, TravisCI, and a SimpleCD cronjob.
 
-Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of the project for this revision. If no failures occurs, TravisCI will create a new release for the given revision.
+Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of the project for this revision. If no failures occurs, TravisCI will create a new release for the given revision, named *travisci-build-<BUILDNUMBER>*.
 
-On the production server, a SimpleCD cronjob observes the repository - if a new release is detected, then the revision of this release will be checked out and its content copied to the project folder at */opt/soundvenirs.com*.
+On the production server, a SimpleCD cronjob observes the repository - if a new release matching the *travisci-build-<BUILDNUMBER>* pattern is detected, then the revision of this release will be checked out and its content copied to the project folder at */opt/soundvenirs.com*.
 
+### Setting up SimpleCD on the production server
+
+    cd /opt
+    sudo git clone https://github.com/manuelkiessling/simplecd.git
+    sudo echo "* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-backend.git" > /etc/cron.d/deploy-soundvenirs-backend
