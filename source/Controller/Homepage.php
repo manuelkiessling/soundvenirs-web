@@ -62,7 +62,7 @@ class Homepage
     public function qrcodeAction($uuid)
     {
         require_once __DIR__.'/../../vendor/t0k4rt/phpqrcode/qrlib.php';
-        $image = \QRcode::png($uuid);
+        $image = \QRcode::png('http://sndvnrs.com/s/'.$uuid);
         return new Response($image, 200, array('Content-Type' => 'image/png'));
     }
 }

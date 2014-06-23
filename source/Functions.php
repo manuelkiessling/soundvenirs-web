@@ -2,7 +2,8 @@
 
 function createSound(Silex\Application $app, $title)
 {
-    $uuid = sha1(uniqid('', true));
+    $idGenerator = new Soundvenirs\Helper\IdGenerator($app['db']);
+    $uuid = $idGenerator->generate();
     $app['db']->insert(
         'sounds',
         array(
