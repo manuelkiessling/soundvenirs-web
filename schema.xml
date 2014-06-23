@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="soundvenirs" defaultIdMethod="native">
+    <table name="sounds" namespace="Soundvenirs\Model\Propel">
+        <column name="id" type="varchar" size="6" required="true" primaryKey="true" autoIncrement="false"/>
+        <column name="title" type="varchar" size="128" required="true"/>
+        <column name="lat" type="float" required="false"/>
+        <column name="long" type="float" required="false"/>
+        <column name="mp3url" type="varchar" size="128" required="true"/>
+    </table>
+</database>
