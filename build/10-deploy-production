@@ -1,6 +1,8 @@
 #!/bin/bash
 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
+
 cd $2
-/usr/local/bin/composer update \
-  && /usr/local/bin/bower --allow-root install \
-  && rsync -avc --exclude _simplecd/ --exclude build/ --exclude tests/ --exclude .git* $2/ /opt/soundvenirs.com/
+/usr/local/bin/composer update || exit 1
+/usr/local/bin/bower --allow-root install || exit 1
+rsync -avc --exclude _simplecd/ --exclude build/ --exclude tests/ --exclude .git* $2/ /opt/soundvenirs.com/ || exit 1
