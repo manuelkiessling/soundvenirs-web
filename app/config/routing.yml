@@ -1,3 +1,7 @@
+soundvenirs_sound:
+    resource: "@SoundvenirsSoundBundle/Resources/config/routing.yml"
+    prefix:   /
+
 soundvenirs_api:
     resource: "@SoundvenirsApiBundle/Resources/config/routing.yml"
     prefix:   /
