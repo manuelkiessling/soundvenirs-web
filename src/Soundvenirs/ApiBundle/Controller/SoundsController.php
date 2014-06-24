@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SoundsController extends Controller
 {
-    public function indexAction($id)
+    public function retrieveOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('SoundvenirsSoundBundle:Sound');

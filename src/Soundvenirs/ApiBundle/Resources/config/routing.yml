@@ -1,3 +1,3 @@
-soundvenirs_api_sounds:
+soundvenirs_api_sounds_retrieve_one:
     path:     /sounds/{id}
-    defaults: { _controller: SoundvenirsApiBundle:Sounds:index }
+    defaults: { _controller: SoundvenirsApiBundle:Sounds:retrieveOne }
