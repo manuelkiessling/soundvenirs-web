@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiSoundsTest extends WebTestCase
 {
-    public function testGetSoundById()
+    public function testGetOneSound()
     {
         $client = static::createClient();
         $container = $client->getContainer();
