@@ -1,19 +1,11 @@
 language: php
+
 php:
-- 5.3
-branches:
-  only:
-  - master
-before_script:
-- sudo apt-get update -qq
-- sudo apt-get install php5-sqlite php5-gd sqlite3
-- wget http://getcomposer.org/composer.phar
-- php composer.phar install
-script:
-- phpunit --stderr tests/
-- ./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./source
-env:
-  global:
-  - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
-after_success:
-- bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-backend/builds/${TRAVIS_BUILD_ID}
+  - 5.3.3
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+
+before_script: composer install -n
+
