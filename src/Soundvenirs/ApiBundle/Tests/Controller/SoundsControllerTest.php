@@ -26,10 +26,10 @@ class ApiSoundsTest extends WebTestCase
         $entityManager->persist($sound);
         $entityManager->flush();
 
-        $client->request('GET', '/api/sounds/1');
+        $client->request('GET', '/api/sounds/ab12cd');
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '{"id":"ab12cd","title":"First Song","mp3url":"http://www.soundvenirs.com/download/ab12cd.mp3","location":{"lat":11.1,"long":1.11}}',
+            '{"id":"ab12cd","title":"First Song","mp3url":"http:\/\/www.soundvenirs.com\/download\/ab12cd.mp3","location":{"lat":11.1,"long":1.11}}',
             $content
         );
     }
