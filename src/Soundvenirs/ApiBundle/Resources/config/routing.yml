@@ -1,0 +1,3 @@
+soundvenirs_api_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: SoundvenirsApiBundle:Default:index }

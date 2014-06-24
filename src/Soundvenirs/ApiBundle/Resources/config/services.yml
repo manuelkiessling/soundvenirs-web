@@ -1,0 +1,7 @@
+parameters:
+#    soundvenirs_api.example.class: Soundvenirs\ApiBundle\Example
+
+services:
+#    soundvenirs_api.example:
+#        class: %soundvenirs_api.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
