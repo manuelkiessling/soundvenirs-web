@@ -2,3 +2,5 @@
 vendor/
 legacy-vendor/phpqrcode/errors.txt
 public/js/bower_components/
+var/
+bin/
