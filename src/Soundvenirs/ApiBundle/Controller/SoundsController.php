@@ -10,8 +10,7 @@ class SoundsController extends Controller
 {
     public function retrieveOneAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('SoundvenirsSoundBundle:Sound');
+        $repo = $this->get('soundvenirs_sound.sound_repository');
         $sound = $repo->find($id);
 
         if ($sound === null) {
@@ -35,7 +34,7 @@ class SoundsController extends Controller
         $params = json_decode($content, true);
         $title = $params['title'];
 
-        $repo = $this->getDoctrine()->getManager()->getRepository('SoundvenirsSoundBundle:Sound');
+        $repo = $this->get('soundvenirs_sound.sound_repository');
         $soundFactory = new Factory\Sound($repo);
         $sound = $soundFactory->create();
         $sound->title = $title;
