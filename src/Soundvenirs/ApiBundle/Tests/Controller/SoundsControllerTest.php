@@ -89,4 +89,25 @@ class ApiSoundsTest extends WebTestCase
             $content
         );
     }
+
+    public function testSetSoundLocationAlreadyDone()
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
+        $content = $client->getResponse()->getContent();
+        $values = json_decode($content);
+        $id = $values->id;
+
+        $client->request('POST', '/api/sounds/'.$id, array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"lat":56.0,"long":6.0}');
+        $content = $client->getResponse()->getContent();
+        $values = json_decode($content);
+        $status = $values->status;
+
+        $client->request('POST', '/api/sounds/'.$id, array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"lat":99.0,"long":9.0}');
+        $content = $client->getResponse()->getContent();
+        $result = json_decode($content);
+        $status = $result->status;
+
+        $this->assertEquals(false, $status);
+    }
 }
