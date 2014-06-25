@@ -5,3 +5,10 @@ services:
 #    soundvenirs_homepage.example:
 #        class: %soundvenirs_homepage.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    soundvenirs_domain.sound_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Soundvenirs\DomainBundle\Entity\Sound
