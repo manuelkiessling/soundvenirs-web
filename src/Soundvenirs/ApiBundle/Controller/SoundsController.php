@@ -4,6 +4,7 @@ namespace Soundvenirs\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Soundvenirs\SoundBundle\Factory;
 
 class SoundsController extends Controller
 {
@@ -26,5 +27,23 @@ class SoundsController extends Controller
             'long' => $sound->long
         ];
         return new JsonResponse($responseSound);
+    }
+
+    public function createAction()
+    {
+        $content = $this->get('request')->getContent();
+        $params = json_decode($content, true);
+        $title = $params['title'];
+
+        $repo = $this->getDoctrine()->getManager()->getRepository('SoundvenirsSoundBundle:Sound');
+        $soundFactory = new Factory\Sound($repo);
+        $sound = $soundFactory->create();
+        $sound->title = $title;
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($sound);
+        $em->flush();
+
+        return new JsonResponse(['id' => $sound->id]);
     }
 }

@@ -47,7 +47,7 @@ class ApiSoundsTest extends WebTestCase
         $client->request('GET', '/api/sounds/foo');
         $content = $client->getResponse()->getContent();
         $status = $client->getResponse()->getStatusCode();
-        $this->assertSame('', $content);
+        $this->assertSame('{}', $content);
         $this->assertSame(404, $status);
     }
 
@@ -57,5 +57,13 @@ class ApiSoundsTest extends WebTestCase
         $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
         $content = $client->getResponse()->getContent();
         $this->assertRegExp('/^\{"id":"[0-9a-z]{1,6}"\}$/', $content);
+
+        $values = json_decode($content);
+        $id = $values->id;
+
+        $repo = $this->entityManager->getRepository('SoundvenirsSoundBundle:Sound');
+        $sound = $repo->find($id);
+
+        $this->assertSame('First Song', $sound->title);
     }
 }
