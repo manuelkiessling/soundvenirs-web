@@ -6,6 +6,7 @@
 /var/logs/*
 !var/logs/.gitkeep
 /app/config/parameters.yml
-/bin/
+/bin/*
+!/bin/console
 /web/bundles/
 /build/
