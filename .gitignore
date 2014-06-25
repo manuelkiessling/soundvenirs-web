@@ -1,10 +1,10 @@
 .idea
 /vendor/
 /var/bootstrap.php.cache
-/var/app/cache/*
-!var/app/cache/.gitkeep
-/var/app/logs/*
-!var/app/logs/.gitkeep
+/var/cache/*
+!var/cache/.gitkeep
+/var/logs/*
+!var/logs/.gitkeep
 /app/config/parameters.yml
 /bin/
 /web/bundles/
