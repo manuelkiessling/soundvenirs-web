@@ -1,0 +1,3 @@
+soundvenirs_homepage_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: SoundvenirsHomepageBundle:Default:index }

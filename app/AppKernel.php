@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Soundvenirs\ApiBundle\SoundvenirsApiBundle(),
             new Soundvenirs\DomainBundle\SoundvenirsDomainBundle(),
+            new Soundvenirs\HomepageBundle\SoundvenirsHomepageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

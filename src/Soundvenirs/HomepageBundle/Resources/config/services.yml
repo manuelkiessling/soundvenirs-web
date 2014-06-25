@@ -1,0 +1,7 @@
+parameters:
+#    soundvenirs_homepage.example.class: Soundvenirs\HomepageBundle\Example
+
+services:
+#    soundvenirs_homepage.example:
+#        class: %soundvenirs_homepage.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
