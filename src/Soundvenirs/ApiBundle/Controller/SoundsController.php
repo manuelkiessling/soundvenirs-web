@@ -13,6 +13,10 @@ class SoundsController extends Controller
         $repo = $em->getRepository('SoundvenirsSoundBundle:Sound');
         $sound = $repo->find($id);
 
+        if ($sound === null) {
+            return new JsonResponse(null, 404);
+        }
+
         $responseSound = [];
         $responseSound['id'] = $sound->id;
         $responseSound['title'] = $sound->title;
