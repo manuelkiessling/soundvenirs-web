@@ -1,8 +1,14 @@
 soundvenirs_api_sounds_retrieve_one:
     path:     /sounds/{id}
     defaults: { _controller: SoundvenirsApiBundle:Sounds:retrieveOne }
+    methods:  [GET]
 
 soundvenirs_api_sounds_create:
     path:     /sounds
     defaults: { _controller: SoundvenirsApiBundle:Sounds:create }
+    methods:  [POST]
+
+soundvenirs_api_sounds_update:
+    path:     /sounds/{id}
+    defaults: { _controller: SoundvenirsApiBundle:Sounds:update }
     methods:  [POST]

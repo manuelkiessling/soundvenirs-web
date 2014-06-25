@@ -20,7 +20,7 @@ class SoundsController extends Controller
         $responseSound = [];
         $responseSound['id'] = $sound->id;
         $responseSound['title'] = $sound->title;
-        $responseSound['mp3url'] = 'http://www.soundvenirs.com/download/'.$sound->id.'.mp3';
+        $responseSound['mp3url'] = 'http://www.soundvenirs.com/download/' . $sound->id . '.mp3';
         $responseSound['location'] = [
             'lat' => $sound->lat,
             'long' => $sound->long
@@ -44,5 +44,29 @@ class SoundsController extends Controller
         $em->flush();
 
         return new JsonResponse(['id' => $sound->id]);
+    }
+
+    public function updateAction($id)
+    {
+        $repo = $this->get('soundvenirs_domain.sound_repository');
+        $sound = $repo->find($id);
+
+        if ($sound === null) {
+            return new JsonResponse(null, 404);
+        }
+
+        $content = $this->get('request')->getContent();
+        $params = json_decode($content, true);
+        $lat = $params['lat'];
+        $long = $params['long'];
+
+        $sound->lat = (float)$lat;
+        $sound->long = (float)$long;
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($sound);
+        $em->flush();
+
+        return new JsonResponse(['status' => true]);
     }
 }
