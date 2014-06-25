@@ -1,3 +1,9 @@
-soundvenirs_homepage_homepage:
-    path:     /hello/{name}
+soundvenirs_homepage_index:
+    path:     /
     defaults: { _controller: SoundvenirsHomepageBundle:Default:index }
+    methods: [GET]
+
+soundvenirs_homepage_upload:
+    path:     /upload
+    defaults: { _controller: SoundvenirsHomepageBundle:Default:upload }
+    methods: [POST]
