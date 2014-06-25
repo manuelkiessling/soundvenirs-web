@@ -12,3 +12,8 @@ soundvenirs_api_sounds_update:
     path:     /sounds/{id}
     defaults: { _controller: SoundvenirsApiBundle:Sounds:update }
     methods:  [POST]
+
+soundvenirs_api_soundlocations_retrieve_all:
+    path:     /soundLocations
+    defaults: { _controller: SoundvenirsApiBundle:SoundLocations:retrieveAll }
+    methods:  [GET]
