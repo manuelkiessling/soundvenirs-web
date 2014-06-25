@@ -55,6 +55,10 @@ class SoundsController extends Controller
             return new JsonResponse(null, 404);
         }
 
+        if ($sound->lat !== null) {
+            return new JsonResponse(['status' => false]);
+        }
+
         $content = $this->get('request')->getContent();
         $params = json_decode($content, true);
         $lat = $params['lat'];
