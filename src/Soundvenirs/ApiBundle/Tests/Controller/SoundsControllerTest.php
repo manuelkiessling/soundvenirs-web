@@ -66,4 +66,26 @@ class ApiSoundsTest extends WebTestCase
 
         $this->assertSame('First Song', $sound->title);
     }
+
+    public function testSetSoundLocation() {
+        $client = static::createClient();
+        $client->request('POST', '/api/sounds', array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"title":"First Song"}');
+        $content = $client->getResponse()->getContent();
+        $values = json_decode($content);
+        $id = $values->id;
+
+        $client->request('POST', '/api/sounds/'.$id, array(), array(), array('CONTENT_TYPE' => 'application/json'), '{"lat":56.0,"long":6.0}');
+        $content = $client->getResponse()->getContent();
+        $values = json_decode($content);
+        $status = $values->status;
+
+        $this->assertSame(true, $status);
+
+        $client->request('GET', '/api/sounds/'.$id);
+        $content = $client->getResponse()->getContent();
+        $this->assertEquals(
+            '{"id":"'.$id.'","title":"First Song","mp3url":"http:\/\/www.soundvenirs.com\/download\/'.$id.'.mp3","location":{"lat":56.0,"long":6.0}}',
+            $content
+        );
+    }
 }
