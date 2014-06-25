@@ -1,6 +1,11 @@
 .idea
-vendor/
-legacy-vendor/phpqrcode/errors.txt
-public/js/bower_components/
-var/
-bin/
+/vendor/
+/var/bootstrap.php.cache
+/var/app/cache/*
+!var/app/cache/.gitkeep
+/var/app/logs/*
+!var/app/logs/.gitkeep
+/app/config/parameters.yml
+/bin/
+/web/bundles/
+/build/
