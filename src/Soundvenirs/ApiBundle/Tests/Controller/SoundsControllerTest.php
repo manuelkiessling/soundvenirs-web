@@ -7,13 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiSoundsTest extends WebTestCase
 {
-    protected $client;
     protected $entityManager;
 
     public function setUp()
     {
-        $this->client = static::createClient();
-        $container = $this->client->getContainer();
+        $client = static::createClient();
+        $container = $client->getContainer();
         $this->entityManager = $container->get('doctrine.orm.entity_manager');
 
         $connection = $this->entityManager->getConnection();
@@ -40,6 +39,16 @@ class ApiSoundsTest extends WebTestCase
             '{"id":"ab12cd","title":"First Song","mp3url":"http:\/\/www.soundvenirs.com\/download\/ab12cd.mp3","location":{"lat":11.1,"long":1.11}}',
             $content
         );
+    }
+
+    public function testNonExistantSound()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api/sounds/foo');
+        $content = $client->getResponse()->getContent();
+        $status = $client->getResponse()->getStatusCode();
+        $this->assertSame('', $content);
+        $this->assertSame(404, $status);
     }
 
     public function testCreateSound()
