@@ -5,7 +5,7 @@ namespace Soundvenirs\ApiBundle\Tests\Controller;
 use Soundvenirs\DomainBundle\Entity\Sound;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ApiSoundsTest extends WebTestCase
+class SoundsControllerTest extends WebTestCase
 {
     protected $entityManager;
 
