@@ -1,10 +1,10 @@
 parameters:
-#    soundvenirs_sound.example.class: Soundvenirs\SoundBundle\Example
+#    soundvenirs_domain.example.class: Soundvenirs\DomainBundle\Example
 
 services:
-    soundvenirs_sound.sound_repository:
+    soundvenirs_domain.sound_repository:
         class: Doctrine\ORM\EntityRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - Soundvenirs\SoundBundle\Entity\Sound
+            - Soundvenirs\DomainBundle\Entity\Sound

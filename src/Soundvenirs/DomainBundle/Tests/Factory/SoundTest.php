@@ -1,8 +1,8 @@
 <?php
 
-namespace Soundvenirs\SoundBundle\Tests\Factory;
+namespace Soundvenirs\DomainBundle\Tests\Factory;
 
-use Soundvenirs\SoundBundle\Factory;
+use Soundvenirs\DomainBundle\Factory;
 
 class SoundTest extends \PHPUnit_Framework_TestCase
 {

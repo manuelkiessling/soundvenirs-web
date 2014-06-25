@@ -2,7 +2,7 @@
 
 namespace Soundvenirs\ApiBundle\Tests\Controller;
 
-use Soundvenirs\SoundBundle\Entity\Sound;
+use Soundvenirs\DomainBundle\Entity\Sound;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiSoundsTest extends WebTestCase
@@ -61,7 +61,7 @@ class ApiSoundsTest extends WebTestCase
         $values = json_decode($content);
         $id = $values->id;
 
-        $repo = $this->entityManager->getRepository('SoundvenirsSoundBundle:Sound');
+        $repo = $client->getContainer()->get('soundvenirs_domain.sound_repository');
         $sound = $repo->find($id);
 
         $this->assertSame('First Song', $sound->title);

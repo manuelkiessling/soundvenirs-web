@@ -1,6 +1,6 @@
 <?php
 
-namespace Soundvenirs\SoundBundle\Entity;
+namespace Soundvenirs\DomainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

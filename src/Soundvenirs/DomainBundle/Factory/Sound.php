@@ -1,9 +1,9 @@
 <?php
 
-namespace Soundvenirs\SoundBundle\Factory;
+namespace Soundvenirs\DomainBundle\Factory;
 
 use Doctrine\ORM\EntityRepository;
-use \Soundvenirs\SoundBundle\Entity;
+use \Soundvenirs\DomainBundle\Entity;
 
 class Sound
 {

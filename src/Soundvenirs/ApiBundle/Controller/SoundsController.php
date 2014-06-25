@@ -4,13 +4,13 @@ namespace Soundvenirs\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Soundvenirs\SoundBundle\Factory;
+use Soundvenirs\DomainBundle\Factory;
 
 class SoundsController extends Controller
 {
     public function retrieveOneAction($id)
     {
-        $repo = $this->get('soundvenirs_sound.sound_repository');
+        $repo = $this->get('soundvenirs_domain.sound_repository');
         $sound = $repo->find($id);
 
         if ($sound === null) {
@@ -34,7 +34,7 @@ class SoundsController extends Controller
         $params = json_decode($content, true);
         $title = $params['title'];
 
-        $repo = $this->get('soundvenirs_sound.sound_repository');
+        $repo = $this->get('soundvenirs_domain.sound_repository');
         $soundFactory = new Factory\Sound($repo);
         $sound = $soundFactory->create();
         $sound->title = $title;

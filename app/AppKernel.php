@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Soundvenirs\ApiBundle\SoundvenirsApiBundle(),
-            new Soundvenirs\SoundBundle\SoundvenirsSoundBundle(),
+            new Soundvenirs\DomainBundle\SoundvenirsDomainBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
