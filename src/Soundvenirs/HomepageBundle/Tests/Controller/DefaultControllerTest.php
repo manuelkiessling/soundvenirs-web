@@ -45,4 +45,26 @@ class DefaultControllerTest extends WebTestCase
         ob_clean();
         $this->assertEquals('image/png', $client->getResponse()->headers->get('content-type'));
     }
+
+    public function testDownload()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+        $uploadForm = $crawler->selectButton('Upload')->form();
+        $uploadForm['form[soundfile]']->upload(__DIR__.'/../assets/soundfile.mp3');
+        $client->submit($uploadForm);
+
+        $repo = $client->getContainer()->get('soundvenirs_domain.sound_repository');
+        $sounds = $repo->findAll();
+        $sound = $sounds[0];
+
+        $client->request('GET', '/download/'.$sound->id.'.mp3');
+        $this->assertEquals('foo', $client->getResponse()->getContent());
+
+        $client->request('GET', '/download/a.mp3');
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+
+        $client->request('GET', '/download/abcdefg.mp3');
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
 }

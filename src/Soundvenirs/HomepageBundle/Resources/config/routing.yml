@@ -12,3 +12,8 @@ soundvenirs_homepage_qrcode:
     path:     /qrcode/{id}.png
     defaults: { _controller: SoundvenirsHomepageBundle:Default:qrcode }
     methods: [GET]
+
+soundvenirs_homepage_download:
+    path:     /download/{id}.mp3
+    defaults: { _controller: SoundvenirsHomepageBundle:Default:download }
+    methods: [GET]

@@ -54,4 +54,22 @@ class DefaultController extends Controller
         $image = \QRcode::png('http://sndvnrs.com/s/'.$id);
         return new Response($image, 200, array('Content-Type' => 'image/png'));
     }
+
+    public function downloadAction($id)
+    {
+        $valid = preg_match('/^[0-9a-z]{1,6}$/', $id);
+        if ($valid === 1) {
+            if (file_exists('/var/tmp/soundvenirs-'.$id.'.mp3')) {
+                return new Response(
+                    file_get_contents('/var/tmp/soundvenirs-' . $id . '.mp3'),
+                    200,
+                    array('Content-Type' => 'audio/mpeg')
+                );
+            } else {
+                return new Response('No such sound', 404);
+            }
+        } else {
+            return new Response('Bad request', 400);
+        }
+    }
 }
