@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Soundvenirs</title>
+    <link rel="stylesheet" href="/css/default.css?0">
+    <script src="/js/bower_components/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#qrcode').fadeTo(3000, 0.8);
+            $('#qrcode-hint').fadeTo(3000, 1.0);
+        });
+    </script>
+</head>
+<body>
+<div id="center">
+    <div id="qrcode">
+        <img src="/qrcode/{{ id }}" width="400" height="400">
+        <div id="print-hint">
+            www.soundvenirs.com
+        </div>
+    </div>
+    <div id="qrcode-hint" class="hint">
+        <div class="noprint">
+            <br>
+            <br>
+            Use the <em>Print</em> function of your browser to print this QR code.
+            Then place the printed QR code at
+            the target location. While at the target location,
+            scan the code for the first time using the Soundvenirs
+            mobile app. Now visitors at the target location will be
+            able to scan the code and listen to your sound.
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,1 +1,40 @@
-Hello {{ name }}!
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Soundvenirs</title>
+    <link rel="stylesheet" href="/css/default.css?0">
+    <script src="/js/bower_components/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#logo').fadeOut(3000);
+                $('#upload').fadeTo(3000, 0.8);
+            }, 2000);
+            setTimeout(function() {
+                $('#upload-hint').fadeTo(3000, 1.0);
+            }, 6000);
+        });
+    </script>
+</head>
+<body>
+<div id="center">
+    <div id="logo"></div>
+    <div id="upload" onclick="$('#form_soundfile').click();"></div>
+    <div id="upload-hint" class="hint">
+        Click on <em>Upload</em> to upload your sound as an mp3 file.
+        <br>
+        <br>
+        Afterwards, a QR code will be displayed - simply print
+        the page with the code and place the printed QR code at
+        the target location. Then, while at the target location,
+        scan the code for the first time using the Soundvenirs
+        mobile app. Now visitors at the target location will be
+        able to scan the code and listen to your sound.
+    </div>
+    <form id="form" action="upload" method="post" enctype="multipart/form-data">
+        {{ form_widget(form) }}
+        <input type="submit" value="Upload">
+    </form>
+</div>
+</body>
+</html>
