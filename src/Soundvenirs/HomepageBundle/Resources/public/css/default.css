@@ -1,0 +1,79 @@
+html, body {
+    margin: 0;
+    background: url(../images/background1.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: Verdana, no-serif;
+}
+
+#center {
+    width: 400px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -200px;
+    padding: 0;
+}
+
+#logo {
+    height: 402px;
+    opacity: 0.8;
+    background: url(../images/logo.png) no-repeat;
+    top: 0;
+}
+
+#upload {
+    display: none;
+    height: 402px;
+    width: 400px;
+    background: url(../images/upload-button.png) no-repeat;
+    position: absolute;
+    top: 0;
+}
+
+.hint {
+    display: none;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px #777;
+    position: absolute;
+    top: 440px;
+}
+
+#qrcode {
+    display: none;
+    height: 400px;
+    position: absolute;
+    top: 0;
+}
+
+#print-hint {
+    text-align: center;
+    display: none;
+    color: #000;
+}
+
+#form {
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+}
+
+#form_soundfile {
+    width: 400px;
+    height: 402px;
+}
+
+@media print {
+    #qrcode {
+        opacity: 1.0;
+    }
+    #print-hint {
+        display: block;
+    }
+    .noprint {
+        display: none;
+    }
+}
