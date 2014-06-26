@@ -19,7 +19,7 @@
 {% block body %}
     <div id="center">
         <div id="qrcode">
-            <img src="/qrcode/{{ id }}.png" width="400" height="400">
+            <img src="{{ path('soundvenirs_homepage_qrcode', {'id': id}) }}" width="400" height="400">
             <div id="print-hint">
                 www.soundvenirs.com
             </div>
