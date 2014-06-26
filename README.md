@@ -1,170 +1,206 @@
-Symfony Standard Edition
-========================
+# Soundvenirs Website and Webservice API
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony2
-application that you can use as the skeleton for your new applications.
+[![Build Status](https://travis-ci.org/manuelkiessling/soundvenirs-backend.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenirs-backend)
 
-This document contains information on how to download, install, and start
-using Symfony. For a more detailed explanation, see the [Installation][1]
-chapter of the Symfony Documentation.
+## Working on the project
 
-1) Installing the Standard Edition
-----------------------------------
+In order to start developing, testing and using this project, use the following recipe:
 
-When it comes to installing the Symfony Standard Edition, you have the
-following options.
+### Requirements
 
-### Use Composer (*recommended*)
+Your local development environment needs to have the following software installed and runnable:
 
-As Symfony uses [Composer][2] to manage its dependencies, the recommended way
-to create a new project is to use it.
+* Git
+* sqlite3
+* PHP >= 5.4 with sqlite Support
+* make
+* composer
+* Node.js >= 0.10.28 with NPM >= 1.3.11
+* Bower
 
-If you don't have Composer yet, download it following the instructions on
-http://getcomposer.org/ or just run the following command:
+### Installing the requirements
 
-    curl -s http://getcomposer.org/installer | php
+This part of course depends on your actual system. However, here is how to set up your system if you are running Mac OS X
+and use Homebrew. We are going to use the most recent stable version of the requirements available.
 
-Then, use the `create-project` command to generate a new Symfony application:
+    cd
+    brew install git php55
+    curl -O http://nodejs.org/dist/v0.10.29/node-v0.10.29.tar.gz
+    tar xvfz node-v0.10.29.tar.gz
+    cd node-v0.10.29
+    ./configure
+    make
+    sudo make install
+    sudo npm install -g bower
+    curl -sS https://getcomposer.org/installer | php
+    sudo ln -s ~/composer.phar /usr/bin/composer
+    
+### Getting the project sources
 
-    php composer.phar create-project symfony/framework-standard-edition path/to/install
+    git clone https://github.com/manuelkiessling/soundvenirs-backend.git
+    cd soundvenirs-backend
 
-Composer will install Symfony and all its dependencies under the
-`path/to/install` directory.
+### Setting up the project and starting a dev server
 
-### Download an Archive File
+This is achieved by simply running
 
-To quickly test Symfony, you can also download an [archive][3] of the Standard
-Edition and unpack it somewhere under your web server root directory.
+    make
 
-If you downloaded an archive "without vendors", you also need to install all
-the necessary dependencies. Download composer (see above) and run the
-following command:
+You will now have a development web server running at http://localhost:8080/
 
-    php composer.phar install
 
-2) Checking your System Configuration
--------------------------------------
+## Setting up the production server environment
 
-Before starting coding, make sure that your local system is properly
-configured for Symfony.
+The following describes the steps you must take in order to create an environment which allows the production website
+and webservice API to be served from this environment.
 
-Execute the `check.php` script from the command line:
+### Requirements
 
-    php app/check.php
+* Ubuntu 12.04 64bit
+* git
+* sqlite3
+* php5-fpm
+* php5-gd
+* php5-sqlite
+* composer
+* npm >= 1.3.11
+* bower
+* nginx
 
-The script returns a status code of `0` if all mandatory requirements are met,
-`1` otherwise.
+### Installing the requirements
 
-Access the `config.php` script from a browser:
+    cd
+    sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
+    wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz
+    tar xvfz node-v0.10.28.tar.gz
+    cd node-v0.10.28
+    ./configure
+    make
+    sudo make install
+    sudo npm install -g bower
+    curl -sS https://getcomposer.org/installer | php
+    sudo ln -s ~/composer.phar /usr/bin/composer
 
-    http://localhost/path-to-project/web/config.php
+### Setting up the environment
 
-If you get any warnings or recommendations, fix them before moving on.
+Set `listen` to `127.0.0.1:9001` in `/etc/php5/fpm/pool.d/www.conf`.
 
-3) Browsing the Demo Application
---------------------------------
+Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
 
-Congratulations! You're now ready to use Symfony.
+    server {
+        server_name www.soundvenirs.com soundvenirs.com;
+        listen 80;
+        access_log /var/log/nginx/soundvenirs.com.access.log;
+        error_log /var/log/nginx/soundvenirs.com.error.log;
+        charset utf-8;
+        client_max_body_size 20M;
+    
+        root /opt/soundvenirs.com/public;
+        index index.php;
+    
+        location ~ \.php$ {
+            fastcgi_pass 127.0.0.1:9001;
+            fastcgi_index index.php;
+            fastcgi_param PHP_VALUE upload_max_filesize=20M;
+            include fastcgi_params;
+        }
+    
+        location / {
+            if (-f $request_filename) {
+                expires max;
+                break;
+            }
+            rewrite ^(.*) /index.php last;
+        }
+    }
 
-From the `config.php` page, click the "Bypass configuration and go to the
-Welcome page" link to load up your first Symfony page.
+Then run
 
-You can also use a web-based configurator by clicking on the "Configure your
-Symfony Application online" link of the `config.php` page.
+    sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
+    cd /opt
+    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
+    cd /opt/soundvenirs.com
+    sudo composer install
+    sudo bower --allow-root install
+    sudo service php5-fpm restart
+    sudo service nginx restart
 
-To see a real-live Symfony page in action, access the following page:
+### Creating the database
 
-    web/app_dev.php/demo/hello/Fabien
+Run
 
-4) Getting started with Symfony
--------------------------------
+    sqlite3 /var/tmp/soundvenirs.production.sqlite
 
-This distribution is meant to be the starting point for your Symfony
-applications, but it also contains some sample code that you can learn from
-and play with.
+Then, inside the SQLite shell, run
 
-A great way to start learning Symfony is via the [Quick Tour][4], which will
-take you through all the basic features of Symfony2.
+    CREATE TABLE sounds(
+       uuid CHAR(36) PRIMARY KEY NOT NULL,
+       title TEXT NOT NULL,
+       lat FLOAT NULL,
+       long FLOAT NULL,
+       mp3url TEXT
+    );
 
-Once you're feeling good, you can move onto reading the official
-[Symfony2 book][5].
+Now, run
 
-A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
-playing with it, you can remove it by following these steps:
+    sudo chown www-data:www-data /var/tmp/soundvenirs.production.sqlite
 
-  * delete the `src/Acme` directory;
+If you point the A record for *www.soundvenirs.com* at the IP address of the production server, you are now able to
+access the website at http://www.soundvenirs.com/.
 
-  * remove the routing entry referencing AcmeDemoBundle in `app/config/routing_dev.yml`;
 
-  * remove the AcmeDemoBundle from the registered bundles in `app/AppKernel.php`;
+## Continuous Delivery setup
 
-  * remove the `web/bundles/acmedemo` directory;
+The following describes the steps you must take in order to set up a Continuous Delivery workflow for the website and
+webservice API.
 
-  * empty the `security.yml` file or tweak the security configuration to fit
-    your needs.
+As a result, every commit to the *master* branch of *git@github.com:manuelkiessling/soundvenirs-backend.git* that
+results in a successful TravisCI run will be released to the production server environment.
 
-What's inside?
----------------
+### The workflow
 
-The Symfony Standard Edition is configured with the following defaults:
+Continuous Delivery works by combining TravisCI, GitHub release tags, and a SimpleCD cronjob.
 
-  * Twig is the only configured template engine;
+                                  GITHUB                                                      
+                                  +---------------+                                           
+                                  |               |                                           
+                   push to master |               | pulls commit                              
+        Developer  +------------> | commit 123456 | +------------> TravisCI                   
+                                  |               |                  |                        
+                                  |               |                  | Runs build and succeeds
+                                  |               |                  |                        
+                                  | release xyz   | <----------------/                        
+                                  |     tag xyz   |   creates release                         
+                                  |               |   (which creates tag)                     
+                                  +-------+-------+                                           
+                                          |                                                   
+                                          |                                                   
+                                          |                                                   
+                                  SERVER  v                                                   
+                                  +---------------+                                           
+                                  | SimpleCD cron |                                           
+                                  |               |                                           
+                                  | - checks for  |                                           
+                                  |   new tag     |                                           
+                                  |               |                                           
+                                  | - finds new   |                                           
+                                  |   tag xyz     |                                           
+                                  |               |                                           
+                                  | - deploys code|                                           
+                                  |               |                                           
+                                  +---------------+                                           
 
-  * Doctrine ORM/DBAL is configured;
+Whenever a new revision is committed to the master branch of this repository, TravisCI will execute the test suite of
+the project for this revision. If no failures occur, TravisCI will create a new release for the given revision, named
+*travisci-build-{BUILDNUMBER}*.
 
-  * Swiftmailer is configured;
+On the production server, a SimpleCD cronjob observes the repository - if a new release matching the
+*travisci-build-{BUILDNUMBER}* pattern is detected, then the revision of this release will be checked out and its
+content copied to the project folder at */opt/soundvenirs.com*.
 
-  * Annotations for everything are enabled.
+### Setting up SimpleCD on the production server
 
-It comes pre-configured with the following bundles:
-
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
-    library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example
-    code
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  http://symfony.com/doc/2.4/book/installation.html
-[2]:  http://getcomposer.org/
-[3]:  http://symfony.com/download
-[4]:  http://symfony.com/doc/2.4/quick_tour/the_big_picture.html
-[5]:  http://symfony.com/doc/2.4/index.html
-[6]:  http://symfony.com/doc/2.4/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  http://symfony.com/doc/2.4/book/doctrine.html
-[8]:  http://symfony.com/doc/2.4/book/templating.html
-[9]:  http://symfony.com/doc/2.4/book/security.html
-[10]: http://symfony.com/doc/2.4/cookbook/email.html
-[11]: http://symfony.com/doc/2.4/cookbook/logging/monolog.html
-[12]: http://symfony.com/doc/2.4/cookbook/assetic/asset_management.html
-[13]: http://symfony.com/doc/2.4/bundles/SensioGeneratorBundle/index.html
+    sudo apt-get install postfix mailutils
+    cd /opt
+    sudo git clone https://github.com/manuelkiessling/simplecd.git
+    sudo echo -e "MAILTO=\"\"\n* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-backend.git https://github.com/manuelkiessling/soundvenirs-backend/commit/" > /etc/cron.d/deploy-soundvenirs-backend
