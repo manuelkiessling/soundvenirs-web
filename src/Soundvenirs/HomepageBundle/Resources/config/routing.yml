@@ -7,3 +7,8 @@ soundvenirs_homepage_upload:
     path:     /upload
     defaults: { _controller: SoundvenirsHomepageBundle:Default:upload }
     methods: [POST]
+
+soundvenirs_homepage_qrcode:
+    path:     /qrcode/{id}.png
+    defaults: { _controller: SoundvenirsHomepageBundle:Default:qrcode }
+    methods: [GET]

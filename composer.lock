@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "10fd664d624f29200ae7d7833147ae86",
+    "hash": "b4bf69db000963260eb8b0b853a820be",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1542,6 +1542,16 @@
                 "framework"
             ],
             "time": "2014-05-31 18:45:50"
+        },
+        {
+            "name": "t0k4rt/phpqrcode",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/t0k4rt/phpqrcode",
+                "reference": "f0567ce717fa1172cb66c48ebae017a094de64b1"
+            },
+            "type": "library"
         },
         {
             "name": "twig/extensions",

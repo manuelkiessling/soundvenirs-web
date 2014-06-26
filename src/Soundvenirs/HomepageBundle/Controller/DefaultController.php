@@ -5,6 +5,7 @@ namespace Soundvenirs\HomepageBundle\Controller;
 use Soundvenirs\DomainBundle\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -43,7 +44,14 @@ class DefaultController extends Controller
         $em->persist($sound);
         $em->flush();
 
-        $soundfile->move('/var/tmp/', 'soundvenirs-'.$sound->id.'.mp3');
+        $soundfile->move('/var/tmp/', 'soundvenirs-' . $sound->id . '.mp3');
         return $this->render('SoundvenirsHomepageBundle:Default:qrcode.html.twig', array('id' => $sound->id));
+    }
+
+    public function qrcodeAction($id)
+    {
+        require_once __DIR__.'/../../../../vendor/t0k4rt/phpqrcode/qrlib.php';
+        $image = \QRcode::png('http://sndvnrs.com/s/'.$id);
+        return new Response($image, 200, array('Content-Type' => 'image/png'));
     }
 }

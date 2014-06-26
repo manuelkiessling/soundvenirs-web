@@ -23,7 +23,7 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
         $uploadForm = $crawler->selectButton('Upload')->form();
-        $uploadForm['form[soundfile]']->upload(__DIR__.'/../assets/soundfile.mp3');
+        $uploadForm['form[soundfile]']->upload(__DIR__ . '/../assets/soundfile.mp3');
         $uploadForm['form[title]'] = 'First Song';
         $client->submit($uploadForm);
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -33,7 +33,16 @@ class DefaultControllerTest extends WebTestCase
         $sound = $sounds[0];
 
         $this->assertEquals('First Song', $sound->title);
-        $this->assertTrue(file_exists('/var/tmp/soundvenirs-'.$sound->id.'.mp3'));
-        unlink('/var/tmp/soundvenirs-'.$sound->id.'.mp3');
+        $this->assertTrue(file_exists('/var/tmp/soundvenirs-' . $sound->id . '.mp3'));
+        unlink('/var/tmp/soundvenirs-' . $sound->id . '.mp3');
+    }
+
+    public function testQrCode()
+    {
+        $client = static::createClient();
+        ob_start();
+        $client->request('GET', '/qrcode/123456.png');
+        ob_clean();
+        $this->assertEquals('image/png', $client->getResponse()->headers->get('content-type'));
     }
 }

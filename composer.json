@@ -19,7 +19,8 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/migrations": "dev-master",
-        "doctrine/doctrine-migrations-bundle": "dev-master"
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "t0k4rt/phpqrcode": "1.0.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
@@ -59,6 +60,20 @@
         },
         "branch-alias": {
             "dev-master": "2.5-dev"
+        }
+    },
+    "repositories": {
+        "phpqrcode": {
+            "type": "package",
+            "package": {
+                "name": "t0k4rt/phpqrcode",
+                "version": "1.0.0",
+                "source": {
+                    "url": "https://github.com/t0k4rt/phpqrcode",
+                    "type": "git",
+                    "reference": "f0567ce717fa1172cb66c48ebae017a094de64b1"
+                }
+            }
         }
     }
 }
