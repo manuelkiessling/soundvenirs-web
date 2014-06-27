@@ -12,6 +12,9 @@ php-dependencies:
 
 migrations: dev-migrations test-migrations
 
+prod-migrations:
+	php bin/console doctrine:migrations:migrate -n --env prod
+
 dev-migrations:
 	php bin/console doctrine:migrations:migrate -n --env dev
 
