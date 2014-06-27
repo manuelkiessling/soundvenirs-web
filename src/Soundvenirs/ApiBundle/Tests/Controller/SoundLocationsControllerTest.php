@@ -45,7 +45,8 @@ class SoundLocationsControllerTest extends WebTestCase
         $client->request('GET', '/api/soundLocations');
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '[{"title":"First Song","location":{"lat":11.1,"long":1.11}},{"title":"Second Song","location":{"lat":22.2,"long":2.22}}]',
+            '[{"title":"First Song","location":{"lat":11.1,"long":1.11}},'.
+            '{"title":"Second Song","location":{"lat":22.2,"long":2.22}}]',
             $content
         );
     }
