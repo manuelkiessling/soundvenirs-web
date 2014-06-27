@@ -1,0 +1,8 @@
+#!/bin/bash
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
+
+cd $2
+rsync -avc --delete --exclude /var $2/ /opt/soundvenirs.com/ || exit 1
+cd /opt/soundvenirs.com
+make production || exit 1
