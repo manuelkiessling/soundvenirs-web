@@ -27,4 +27,15 @@ assets:
 server:
 	php -S 0.0.0.0:8080 -t web/
 
-travisci: php-dependencies assets test-migrations
+travisci-packages:
+	sudo apt-get update -qq
+	sudo apt-get install php5-sqlite php5-gd sqlite3
+
+travisci-before-script: travisci-packages php-dependencies assets test-migrations
+
+travisci-script:
+	phpunit
+	./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./src
+
+travisci-after-success:
+	bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-backend/builds/${TRAVIS_BUILD_ID}

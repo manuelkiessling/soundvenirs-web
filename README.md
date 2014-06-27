@@ -67,19 +67,21 @@ and webservice API to be served from this environment.
 * bower
 * nginx
 
+I'm pretty sure it works with more recent versions of Ubuntu, but I haven't verified it.
+
 ### Installing the requirements
 
     cd
     sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
-    wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz
-    tar xvfz node-v0.10.28.tar.gz
-    cd node-v0.10.28
+    wget http://nodejs.org/dist/v0.10.29/node-v0.10.29.tar.gz
+    tar xvfz node-v0.10.29.tar.gz
+    cd node-v0.10.29
     ./configure
     make
     sudo make install
     sudo npm install -g bower
     curl -sS https://getcomposer.org/installer | php
-    sudo ln -s ~/composer.phar /usr/bin/composer
+    sudo mv ./composer.phar /usr/bin/composer
 
 ### Setting up the environment
 
@@ -94,56 +96,37 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
         error_log /var/log/nginx/soundvenirs.com.error.log;
         charset utf-8;
         client_max_body_size 20M;
-    
-        root /opt/soundvenirs.com/public;
+
+        root /opt/soundvenirs.com/web;
         index index.php;
-    
+
         location ~ \.php$ {
             fastcgi_pass 127.0.0.1:9001;
-            fastcgi_index index.php;
+            fastcgi_index app.php;
             fastcgi_param PHP_VALUE upload_max_filesize=20M;
             include fastcgi_params;
         }
-    
+
         location / {
             if (-f $request_filename) {
                 expires max;
                 break;
             }
-            rewrite ^(.*) /index.php last;
+            rewrite ^(.*) /app.php last;
         }
     }
 
 Then run
 
     sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
-    cd /opt
-    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git ./soundvenirs.com
+    sudo mkdir /opt/soundvenirs.com
+    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git /opt/soundvenirs.com
     cd /opt/soundvenirs.com
-    sudo composer install
-    sudo bower --allow-root install
+    sudo make production
+    sudo chown -R www-data:www-data /opt/soundvenirs.com/var
+    sudo chown www-data:www-data /var/tmp/soundvenirs-backend.prod.sqlite3
     sudo service php5-fpm restart
     sudo service nginx restart
-
-### Creating the database
-
-Run
-
-    sqlite3 /var/tmp/soundvenirs.production.sqlite
-
-Then, inside the SQLite shell, run
-
-    CREATE TABLE sounds(
-       uuid CHAR(36) PRIMARY KEY NOT NULL,
-       title TEXT NOT NULL,
-       lat FLOAT NULL,
-       long FLOAT NULL,
-       mp3url TEXT
-    );
-
-Now, run
-
-    sudo chown www-data:www-data /var/tmp/soundvenirs.production.sqlite
 
 If you point the A record for *www.soundvenirs.com* at the IP address of the production server, you are now able to
 access the website at http://www.soundvenirs.com/.
@@ -198,7 +181,7 @@ On the production server, a SimpleCD cronjob observes the repository - if a new 
 *travisci-build-{BUILDNUMBER}* pattern is detected, then the revision of this release will be checked out and its
 content copied to the project folder at */opt/soundvenirs.com*.
 
-### Setting up SimpleCD on the production server
+### Setting up Continuous Delivery on the production server
 
     sudo apt-get install postfix mailutils
     cd /opt

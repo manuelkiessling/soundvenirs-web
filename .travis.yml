@@ -1,19 +1,16 @@
+env:
+  global:
+  - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
 language: php
 php:
-- 5.4
+- 5.3
 branches:
   only:
   - master
   - symfony
 before_script:
-- sudo apt-get update -qq
-- sudo apt-get install php5-sqlite php5-gd sqlite3
-- make travisci
+- make travisci-before-script
 script:
-- phpunit
-- ./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./src
-env:
-  global:
-  - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
+- make travisci-script
 after_success:
-#- bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-backend/builds/${TRAVIS_BUILD_ID}
+- make travisci-after-success
