@@ -3,7 +3,7 @@ default: development server
 development: dependencies assets dev-migrations test-migrations
 
 dependencies: php-dependencies
-	cd src/Soundvenirs/HomepageBundle ; bower install
+	cd src/Soundvenirs/HomepageBundle ; bower install --allow-root
 
 php-dependencies:
 	composer install -n
