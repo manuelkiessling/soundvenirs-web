@@ -17,14 +17,14 @@ class SoundsController extends Controller
             return new JsonResponse(null, 404);
         }
 
-        $responseSound = [];
+        $responseSound = array();
         $responseSound['id'] = $sound->id;
         $responseSound['title'] = $sound->title;
         $responseSound['mp3url'] = 'http://www.soundvenirs.com/download/' . $sound->id . '.mp3';
-        $responseSound['location'] = [
+        $responseSound['location'] = array(
             'lat' => $sound->lat,
             'long' => $sound->long
-        ];
+        );
         return new JsonResponse($responseSound);
     }
 
@@ -43,7 +43,7 @@ class SoundsController extends Controller
         $em->persist($sound);
         $em->flush();
 
-        return new JsonResponse(['id' => $sound->id]);
+        return new JsonResponse(array('id' => $sound->id));
     }
 
     public function updateAction($id)
@@ -56,7 +56,7 @@ class SoundsController extends Controller
         }
 
         if ($sound->lat !== null) {
-            return new JsonResponse(['status' => false]);
+            return new JsonResponse(array('status' => false));
         }
 
         $content = $this->get('request')->getContent();
@@ -71,6 +71,6 @@ class SoundsController extends Controller
         $em->persist($sound);
         $em->flush();
 
-        return new JsonResponse(['status' => true]);
+        return new JsonResponse(array('status' => true));
     }
 }

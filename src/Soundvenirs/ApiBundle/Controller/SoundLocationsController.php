@@ -18,14 +18,14 @@ class SoundLocationsController extends Controller
 
         $sounds = $query->getResult();
 
-        $soundLocations = [];
+        $soundLocations = array();
         foreach ($sounds as $sound) {
-            $soundLocation = [];
+            $soundLocation = array();
             $soundLocation['title'] = $sound->title;
-            $soundLocation['location'] = [
+            $soundLocation['location'] = array(
                 'lat' => $sound->lat,
                 'long' => $sound->long
-            ];
+            );
             $soundLocations[] = $soundLocation;
         }
 
