@@ -8,7 +8,7 @@ dependencies: php-dependencies
 	cd src/Soundvenirs/HomepageBundle ; bower install
 
 php-dependencies:
-    composer install -n
+	composer install -n
 
 assets:
 	php bin/console assets:install
