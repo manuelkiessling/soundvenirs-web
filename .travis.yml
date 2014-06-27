@@ -7,7 +7,6 @@ php:
 branches:
   only:
   - master
-  - symfony
 before_script:
 - make travisci-before-script
 script:
