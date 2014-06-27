@@ -4,9 +4,11 @@ development: dependencies assets
 	php bin/console doctrine:migrations:migrate -n --env dev
 	php bin/console doctrine:migrations:migrate -n --env test
 
-dependencies:
-	composer install -n
+dependencies: php-dependencies
 	cd src/Soundvenirs/HomepageBundle ; bower install
+
+php-dependencies:
+    composer install -n
 
 assets:
 	php bin/console assets:install
@@ -14,4 +16,4 @@ assets:
 server:
 	php -S 0.0.0.0:8080 -t web/
 
-travisci: development
+travisci: php-dependencies assets
