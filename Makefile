@@ -2,6 +2,8 @@ default: development server
 
 development: dependencies assets dev-migrations test-migrations
 
+production: dependencies assets prod-migrations
+
 dependencies: php-dependencies
 	cd src/Soundvenirs/HomepageBundle ; bower install --allow-root
 
