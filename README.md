@@ -24,16 +24,23 @@ This part of course depends on your actual system. However, here is how to set u
 and use Homebrew. We are going to use the most recent stable version of the requirements available.
 
     cd
+
     brew install git php55
+
     curl -O http://nodejs.org/dist/v0.10.29/node-v0.10.29.tar.gz
     tar xvfz node-v0.10.29.tar.gz
     cd node-v0.10.29
     ./configure
     make
     sudo make install
+
     sudo npm install -g bower
+
     curl -sS https://getcomposer.org/installer | php
     sudo ln -s ~/composer.phar /usr/bin/composer
+
+    sudo mkdir -p /var/lib/soundvenirs-backend/soundfiles
+    sudo chown `whoami` /var/lib/soundvenirs-backend/soundfiles
     
 ### Getting the project sources
 
@@ -72,14 +79,18 @@ I'm pretty sure it works with more recent versions of Ubuntu, but I haven't veri
 ### Installing the requirements
 
     cd
+
     sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
+
     wget http://nodejs.org/dist/v0.10.29/node-v0.10.29.tar.gz
     tar xvfz node-v0.10.29.tar.gz
     cd node-v0.10.29
     ./configure
     make
     sudo make install
+
     sudo npm install -g bower
+
     curl -sS https://getcomposer.org/installer | php
     sudo mv ./composer.phar /usr/bin/composer
 
@@ -120,6 +131,7 @@ Then run
 
     sudo mkdir -p /opt/soundvenirs-backend
     sudo mkdir -p /var/lib/soundvenirs-backend/db
+    sudo mkdir -p /var/lib/soundvenirs-backend/soundfiles
 
     cd /opt
     sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git
@@ -127,7 +139,7 @@ Then run
     sudo make production
 
     sudo chown -R www-data:www-data /opt/soundvenirs-backend/var
-    sudo chown www-data:www-data /var/lib/soundvenirs-backend/db/prod.sqlite3
+    sudo chown -R www-data:www-data /var/lib/soundvenirs-backend
 
     sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
     sudo service php5-fpm restart

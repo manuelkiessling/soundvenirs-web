@@ -21,6 +21,8 @@ class DefaultControllerTest extends WebTestCase
     public function testUpload()
     {
         $client = static::createClient();
+        $container = $client->getContainer();
+
         $crawler = $client->request('GET', '/');
         $uploadForm = $crawler->selectButton('Upload')->form();
         $uploadForm['form[soundfile]']->upload(__DIR__ . '/../assets/soundfile.mp3');
@@ -33,8 +35,8 @@ class DefaultControllerTest extends WebTestCase
         $sound = $sounds[0];
 
         $this->assertEquals('First Song', $sound->title);
-        $this->assertTrue(file_exists('/var/tmp/soundvenirs-' . $sound->id . '.mp3'));
-        unlink('/var/tmp/soundvenirs-' . $sound->id . '.mp3');
+        $this->assertTrue(file_exists($container->getParameter('soundfiles_path') . $sound->id . '.mp3'));
+        unlink($container->getParameter('soundfiles_path') . $sound->id . '.mp3');
     }
 
     public function testQrCode()

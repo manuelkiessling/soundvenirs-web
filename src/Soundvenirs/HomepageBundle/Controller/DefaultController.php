@@ -44,7 +44,7 @@ class DefaultController extends Controller
         $em->persist($sound);
         $em->flush();
 
-        $soundfile->move('/var/tmp/', 'soundvenirs-' . $sound->id . '.mp3');
+        $soundfile->move($this->container->getParameter('soundfiles_path'), $sound->id . '.mp3');
         return $this->render('SoundvenirsHomepageBundle:Default:qrcode.html.twig', array('id' => $sound->id));
     }
 
@@ -59,9 +59,10 @@ class DefaultController extends Controller
     {
         $valid = preg_match('/^[0-9a-z]{1,6}$/', $id);
         if ($valid === 1) {
-            if (file_exists('/var/tmp/soundvenirs-'.$id.'.mp3')) {
+            $filepath = $this->container->getParameter('soundfiles_path') . $id . '.mp3';
+            if (file_exists($filepath)) {
                 return new Response(
-                    file_get_contents('/var/tmp/soundvenirs-' . $id . '.mp3'),
+                    file_get_contents($filepath),
                     200,
                     array('Content-Type' => 'audio/mpeg')
                 );

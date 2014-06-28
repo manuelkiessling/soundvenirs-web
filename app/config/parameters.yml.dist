@@ -18,3 +18,5 @@ parameters:
     debug_toolbar:          true
     debug_redirects:        false
     use_assetic_controller: true
+
+    soundfiles_path: /var/lib/soundvenirs-backend/soundfiles/
