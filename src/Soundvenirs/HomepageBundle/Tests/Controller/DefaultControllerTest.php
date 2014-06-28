@@ -35,8 +35,8 @@ class DefaultControllerTest extends WebTestCase
         $sound = $sounds[0];
 
         $this->assertEquals('First Song', $sound->title);
-        $this->assertTrue(file_exists($container->getParameter('soundfiles_path') . $sound->id . '.mp3'));
-        unlink($container->getParameter('soundfiles_path') . $sound->id . '.mp3');
+        $this->assertTrue(file_exists($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->id . '.mp3'));
+        unlink($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->id . '.mp3');
     }
 
     public function testQrCode()

@@ -34,3 +34,10 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+doctrine:
+    dbal:
+        path: "/var/tmp/soundvenirs-backend.%kernel.environment%.sqlite3"
+
+soundvenirs_homepage:
+    soundfiles_path: /var/tmp/

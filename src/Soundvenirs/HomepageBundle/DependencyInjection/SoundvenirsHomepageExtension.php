@@ -24,5 +24,7 @@ class SoundvenirsHomepageExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('soundvenirs_homepage.soundfiles_path', $config['soundfiles_path']);
     }
 }

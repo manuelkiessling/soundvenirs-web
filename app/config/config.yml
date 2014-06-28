@@ -65,3 +65,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+soundvenirs_homepage:
+    soundfiles_path: "%soundfiles_path%"

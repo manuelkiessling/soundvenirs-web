@@ -39,9 +39,6 @@ and use Homebrew. We are going to use the most recent stable version of the requ
     curl -sS https://getcomposer.org/installer | php
     sudo ln -s ~/composer.phar /usr/bin/composer
 
-    sudo mkdir -p /var/lib/soundvenirs-backend/soundfiles
-    sudo chown `whoami` /var/lib/soundvenirs-backend/soundfiles
-    
 ### Getting the project sources
 
     git clone https://github.com/manuelkiessling/soundvenirs-backend.git
