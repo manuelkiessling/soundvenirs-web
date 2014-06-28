@@ -4,4 +4,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 
 cd $2
 make production || exit 1
-rsync -avc --delete --exclude /var $2/ /opt/soundvenirs-backend/ || exit 1
+rsync -ac --delete --exclude /var $2/ /opt/soundvenirs-backend/ || exit 1
