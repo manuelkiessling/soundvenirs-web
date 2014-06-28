@@ -127,6 +127,8 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
 Then run
 
     sudo mkdir -p /opt/soundvenirs-backend
+    sudo mkdir -p /var/log/soundvenirs-backend
+    sudo mkdir -p /var/lib/soundvenirs-backend/cache
     sudo mkdir -p /var/lib/soundvenirs-backend/db
     sudo mkdir -p /var/lib/soundvenirs-backend/soundfiles
 
@@ -135,6 +137,7 @@ Then run
     cd soundvenirs-backend
     sudo make production
 
+    sudo chown -R www-data:www-data /var/log/soundvenirs-backend
     sudo chown -R www-data:www-data /opt/soundvenirs-backend/var
     sudo chown -R www-data:www-data /var/lib/soundvenirs-backend
 

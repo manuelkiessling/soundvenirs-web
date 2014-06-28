@@ -35,4 +35,22 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    public function getCacheDir()
+    {
+        if ($this->environment === 'prod') {
+            return '/var/lib/soundvenirs-backend/cache';
+        } else {
+            return parent::getCacheDir();
+        }
+    }
+
+    public function getLogDir()
+    {
+        if ($this->environment === 'prod') {
+            return '/var/log/soundvenirs-backend';
+        } else {
+            return parent::getLogDir();
+        }
+    }
 }

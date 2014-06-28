@@ -8,3 +8,4 @@ chown -R www-data:www-data /opt/soundvenirs-backend/var || exit 1
 cd /opt/soundvenirs-backend/
 make production || exit 1
 chown -R www-data:www-data /var/lib/soundvenirs-backend || exit 1
+chown -R www-data:www-data /var/log/soundvenirs-backend || exit 1
