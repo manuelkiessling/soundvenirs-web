@@ -2,7 +2,7 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
 
-rsync -ac --progress $2/ /opt/soundvenirs-backend/ || exit 1
+rsync -ac --stats $2/ /opt/soundvenirs-backend/ || exit 1
 chown -R www-data:www-data /opt/soundvenirs-backend/var || exit 1
 
 cd /opt/soundvenirs-backend/

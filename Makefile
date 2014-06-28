@@ -9,7 +9,7 @@ dependencies: php-dependencies
 	cd src/Soundvenirs/HomepageBundle ; bower install --allow-root
 
 php-dependencies:
-	composer install -n
+	composer install --no-interaction --quiet
 
 migrations: dev-migrations test-migrations
 
