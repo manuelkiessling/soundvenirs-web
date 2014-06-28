@@ -97,7 +97,7 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
         charset utf-8;
         client_max_body_size 20M;
 
-        root /opt/soundvenirs.com/web;
+        root /opt/soundvenirs-backend/web;
         index index.php;
 
         location ~ \.php$ {
@@ -118,13 +118,18 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
 
 Then run
 
-    sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
-    sudo mkdir /opt/soundvenirs.com
-    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git /opt/soundvenirs.com
-    cd /opt/soundvenirs.com
+    sudo mkdir -p /opt/soundvenirs-backend
+    sudo mkdir -p /var/lib/soundvenirs-backend/db
+
+    cd /opt
+    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git
+    cd soundvenirs-backend
     sudo make production
-    sudo chown -R www-data:www-data /opt/soundvenirs.com/var
-    sudo chown www-data:www-data /var/tmp/soundvenirs-backend.prod.sqlite3
+
+    sudo chown -R www-data:www-data /opt/soundvenirs-backend/var
+    sudo chown www-data:www-data /var/lib/soundvenirs-backend/db/prod.sqlite3
+
+    sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
     sudo service php5-fpm restart
     sudo service nginx restart
 
@@ -179,7 +184,7 @@ the project for this revision. If no failures occur, TravisCI will create a new 
 
 On the production server, a SimpleCD cronjob observes the repository - if a new release matching the
 *travisci-build-{BUILDNUMBER}* pattern is detected, then the revision of this release will be checked out and its
-content copied to the project folder at */opt/soundvenirs.com*.
+content copied to the project folder at */opt/soundvenirs-backend*.
 
 ### Setting up Continuous Delivery on the production server
 

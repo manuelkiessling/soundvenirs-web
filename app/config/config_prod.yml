@@ -23,3 +23,7 @@ monolog:
             level: debug
         console:
             type:  console
+
+doctrine:
+    dbal:
+        path: "%database_path%.%kernel.environment%.sqlite3"
