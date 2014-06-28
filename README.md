@@ -12,7 +12,7 @@ Your local development environment needs to have the following software installe
 
 * Git
 * sqlite3
-* PHP >= 5.4 with sqlite Support
+* PHP >= 5.3.3 with gd and sqlite support
 * make
 * composer
 * Node.js >= 0.10.28 with NPM >= 1.3.11
@@ -20,8 +20,8 @@ Your local development environment needs to have the following software installe
 
 ### Installing the requirements
 
-This part of course depends on your actual system. However, here is how to set up your system if you are running Mac OS X
-and use Homebrew. We are going to use the most recent stable version of the requirements available.
+This part of course depends on your actual system. However, here is how to set up your system if you are running Mac OS
+X and use Homebrew. We are going to use the most recent stable version available for the requirements.
 
     cd
 
