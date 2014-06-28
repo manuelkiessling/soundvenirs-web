@@ -4,4 +4,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PA
 
 cd $2
 make production || exit 1
-rsync -ac --exclude /var/cache --exclude /var/logs $2/ /opt/soundvenirs-backend/ || exit 1
+chown -R www-data:www-data /var/lib/soundvenirs-backend
+rsync -ac --progress $2/ /opt/soundvenirs-backend/ || exit 1
+chown -R www-data:www-data /opt/soundvenirs-backend/var
