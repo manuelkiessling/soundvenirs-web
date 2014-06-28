@@ -40,4 +40,4 @@ doctrine:
         path: "/var/tmp/soundvenirs-backend.%kernel.environment%.sqlite3"
 
 soundvenirs_homepage:
-    soundfiles_path: /var/tmp/
+    soundfiles_path: "/var/tmp/"
