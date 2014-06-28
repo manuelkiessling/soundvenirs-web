@@ -26,4 +26,4 @@ monolog:
 
 doctrine:
     dbal:
-        path: "%database_path%.%kernel.environment%.sqlite3"
+        path: "%database_path%%kernel.environment%.sqlite3"
