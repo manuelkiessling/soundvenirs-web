@@ -51,7 +51,7 @@ class DefaultController extends Controller
     public function qrcodeAction($id)
     {
         require_once __DIR__.'/../../../../vendor/t0k4rt/phpqrcode/qrlib.php';
-        $image = \QRcode::png('http://sndvnrs.com/s/'.$id);
+        $image = \QRcode::png('http://sndvnr.com/s/'.$id);
         return new Response($image, 200, array('Content-Type' => 'image/png'));
     }
 
