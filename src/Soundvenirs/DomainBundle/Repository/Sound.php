@@ -87,7 +87,8 @@ class Sound implements ObjectRepository, Selectable
      *
      * @throws \Doctrine\ORM\ORMInvalidArgumentException
      */
-    public function persist(Entity\Sound $sound) {
+    public function persist(Entity\Sound $sound)
+    {
         $this->doctrineEntityManager->persist($sound);
         $this->doctrineEntityManager->flush($sound);
     }
