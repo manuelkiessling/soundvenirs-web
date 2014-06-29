@@ -18,29 +18,28 @@ class SoundLocationsControllerTest extends WebTestCase
 
         $connection->executeUpdate($platform->getTruncateTableSQL('Sound', true));
 
+        $soundRepo = $container->get('soundvenirs_domain.sound_repository');
+
         $sound = new Sound();
         $sound->id = 'aaaaaa';
         $sound->title = 'First Song';
         $sound->lat = 11.1;
         $sound->long = 1.11;
-        $entityManager->persist($sound);
-        $entityManager->flush();
+        $soundRepo->persist($sound);
 
         $sound = new Sound();
         $sound->id = 'bbbbbb';
         $sound->title = 'Second Song';
         $sound->lat = 22.2;
         $sound->long = 2.22;
-        $entityManager->persist($sound);
-        $entityManager->flush();
+        $soundRepo->persist($sound);
 
         $sound = new Sound();
         $sound->id = 'cccccc';
         $sound->title = 'Third Song';
         $sound->lat = null;
         $sound->long = null;
-        $entityManager->persist($sound);
-        $entityManager->flush();
+        $soundRepo->persist($sound);
 
         $client->request('GET', '/api/soundLocations');
         $content = $client->getResponse()->getContent();

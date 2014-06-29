@@ -3,8 +3,6 @@ parameters:
 
 services:
     soundvenirs_domain.sound_repository:
-        class: Doctrine\ORM\EntityRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        class: Soundvenirs\DomainBundle\Repository\Sound
         arguments:
-            - Soundvenirs\DomainBundle\Entity\Sound
+            - @doctrine.orm.default_entity_manager

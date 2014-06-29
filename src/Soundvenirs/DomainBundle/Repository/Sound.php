@@ -15,7 +15,7 @@ use Soundvenirs\DomainBundle\Entity;
  * It does use Doctrine\ORM\EntityRepository and delegates method calls to it, but it also handles entity creation and
  * persistance, making it the one-stop class for all entity-related operations.
  *
- * @package Soundvenirs\DomainBundle\Factory
+ * @package Soundvenirs\DomainBundle\Repository
  */
 class Sound implements ObjectRepository, Selectable
 {
@@ -91,6 +91,15 @@ class Sound implements ObjectRepository, Selectable
         $this->doctrineEntityManager->persist($sound);
         $this->doctrineEntityManager->flush($sound);
     }
+
+    public function getConsumableSounds()
+    {
+            $query = $this->doctrineSoundRepository->createQueryBuilder('s')
+            ->where('s.lat IS NOT NULL AND s.long IS NOT NULL')
+            ->getQuery();
+        return $query->getResult();
+    }
+
 
     protected function isUnique($id)
     {

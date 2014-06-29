@@ -24,14 +24,15 @@ class SoundsControllerTest extends WebTestCase
     public function testRetrieveOneSound()
     {
         $client = static::createClient();
+        $container = $client->getContainer();
+        $soundRepo = $container->get('soundvenirs_domain.sound_repository');
 
         $sound = new Sound();
         $sound->id = 'ab12cd';
         $sound->title = 'First Song';
         $sound->lat = 11.1;
         $sound->long = 1.11;
-        $this->entityManager->persist($sound);
-        $this->entityManager->flush();
+        $soundRepo->persist($sound);
 
         $client->request('GET', '/api/sounds/ab12cd');
         $content = $client->getResponse()->getContent();

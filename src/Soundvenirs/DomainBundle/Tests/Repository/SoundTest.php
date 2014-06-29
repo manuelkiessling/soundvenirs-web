@@ -6,6 +6,7 @@ use Soundvenirs\DomainBundle\Repository;
 
 class SoundTest extends \PHPUnit_Framework_TestCase
 {
+    protected $doctrineSoundRepo;
     protected $doctrineEntityManager;
 
     public function setUp()
@@ -22,6 +23,7 @@ class SoundTest extends \PHPUnit_Framework_TestCase
             ->with('Soundvenirs\DomainBundle\Entity\Sound')
             ->will($this->returnValue($doctrineSoundRepo));
 
+        $this->doctrineSoundRepo = $doctrineSoundRepo;
         $this->doctrineEntityManager = $doctrineEntityManager;
     }
 
@@ -46,5 +48,34 @@ class SoundTest extends \PHPUnit_Framework_TestCase
             ->with($sound);
 
         $soundRepo->persist($sound);
+    }
+
+    public function testGetConsumableSounds()
+    {
+        $mockQuery = $this->getMock('stdClass', array('getResult'));
+        $mockQuery->expects($this->once())
+            ->method('getResult')
+            ->with()
+            ->will($this->returnValue('foo'));
+
+        $mockQueryBuilder = $this->getMock('stdClass', array('where', 'getQuery'));
+        $mockQueryBuilder->expects($this->once())
+            ->method('where')
+            ->with('s.lat IS NOT NULL AND s.long IS NOT NULL')
+            ->will($this->returnValue($mockQueryBuilder));
+
+        $mockQueryBuilder->expects($this->once())
+            ->method('getQuery')
+            ->with()
+            ->will($this->returnValue($mockQuery));
+
+        $this->doctrineSoundRepo->expects($this->once())
+            ->method('createQueryBuilder')
+            ->with('s')
+            ->will($this->returnValue($mockQueryBuilder));
+
+        $soundRepo = new Repository\Sound($this->doctrineEntityManager);
+        $actual = $soundRepo->getConsumableSounds();
+        $this->assertSame('foo', $actual);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Soundvenirs\HomepageBundle\Controller;
 
-use Soundvenirs\DomainBundle\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,13 +35,9 @@ class DefaultController extends Controller
             $title = \basename($soundfile->getClientOriginalName(), '.mp3');
         }
         $soundRepository = $this->get('soundvenirs_domain.sound_repository');
-        $soundFactory = new Factory\Sound($soundRepository);
-        $sound = $soundFactory->create();
-        $sound->title = $title;
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($sound);
-        $em->flush();
+        $sound = $soundRepository->create($title);
+        $soundRepository->persist($sound);
 
         $soundfile->move($this->container->getParameter('soundvenirs_homepage.soundfiles_path'), $sound->id . '.mp3');
         return $this->render('SoundvenirsHomepageBundle:Default:qrcode.html.twig', array('id' => $sound->id));
