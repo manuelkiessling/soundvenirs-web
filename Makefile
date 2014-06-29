@@ -28,6 +28,9 @@ assets:
 server:
 	php -S 0.0.0.0:8080 -t web/
 
+test:
+	./vendor/phpunit/phpunit/phpunit
+
 travisci-packages:
 	sudo apt-get update -qq
 	sudo apt-get install php5-sqlite php5-gd sqlite3
@@ -35,7 +38,7 @@ travisci-packages:
 travisci-before-script: travisci-packages php-dependencies assets test-migrations
 
 travisci-script:
-	phpunit
+	./vendor/phpunit/phpunit/phpunit
 	./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./src
 
 travisci-after-success:
