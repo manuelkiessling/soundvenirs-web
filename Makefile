@@ -29,6 +29,7 @@ server:
 	php -S 0.0.0.0:8080 -t web/
 
 test:
+	php bin/console cache:clear --env test
 	./vendor/phpunit/phpunit/phpunit
 
 travisci-packages:
