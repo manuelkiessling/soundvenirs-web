@@ -60,7 +60,7 @@ class Sound implements ObjectRepository, Selectable
 
     /**
      * @param $title The title of the sound
-     * @param $forcedId Forced id - if this is a string, it's used as the id. If null, id is calculated
+     * @param $forcedId Forced id - if this is a string, it's used as the id. If null, id is generated
      * @return \Soundvenirs\DomainBundle\Entity\Sound Sound entity
      */
     public function create($title, $forcedId = null)
