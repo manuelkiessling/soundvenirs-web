@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Soundvenirs\ApiBundle\SoundvenirsApiBundle(),
             new Soundvenirs\DomainBundle\SoundvenirsDomainBundle(),
             new Soundvenirs\HomepageBundle\SoundvenirsHomepageBundle(),
+            new Soundvenirs\WebappBundle\SoundvenirsWebappBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

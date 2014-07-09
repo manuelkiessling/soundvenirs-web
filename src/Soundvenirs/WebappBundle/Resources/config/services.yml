@@ -1,0 +1,7 @@
+parameters:
+#    soundvenirs_webapp.example.class: Soundvenirs\WebappBundle\Example
+
+services:
+#    soundvenirs_webapp.example:
+#        class: %soundvenirs_webapp.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
