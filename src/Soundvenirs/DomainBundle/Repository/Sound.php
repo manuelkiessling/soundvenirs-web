@@ -93,15 +93,6 @@ class Sound implements ObjectRepository, Selectable
         $this->doctrineEntityManager->flush($sound);
     }
 
-    public function getConsumableSounds()
-    {
-            $query = $this->doctrineSoundRepository->createQueryBuilder('s')
-            ->where('s.lat IS NOT NULL AND s.long IS NOT NULL')
-            ->getQuery();
-        return $query->getResult();
-    }
-
-
     protected function isUnique($id)
     {
         $sound = $this->doctrineSoundRepository->find($id);

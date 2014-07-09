@@ -6,3 +6,7 @@ services:
         class: Soundvenirs\DomainBundle\Repository\Sound
         arguments:
             - @doctrine.orm.default_entity_manager
+    soundvenirs_domain.soundlocation_repository:
+        class: Soundvenirs\DomainBundle\Repository\SoundLocation
+        arguments:
+            - @doctrine.orm.default_entity_manager

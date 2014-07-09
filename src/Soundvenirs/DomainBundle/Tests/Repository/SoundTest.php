@@ -49,33 +49,4 @@ class SoundTest extends \PHPUnit_Framework_TestCase
 
         $soundRepo->persist($sound);
     }
-
-    public function testGetConsumableSounds()
-    {
-        $mockQuery = $this->getMock('stdClass', array('getResult'));
-        $mockQuery->expects($this->once())
-            ->method('getResult')
-            ->with()
-            ->will($this->returnValue('foo'));
-
-        $mockQueryBuilder = $this->getMock('stdClass', array('where', 'getQuery'));
-        $mockQueryBuilder->expects($this->once())
-            ->method('where')
-            ->with('s.lat IS NOT NULL AND s.long IS NOT NULL')
-            ->will($this->returnValue($mockQueryBuilder));
-
-        $mockQueryBuilder->expects($this->once())
-            ->method('getQuery')
-            ->with()
-            ->will($this->returnValue($mockQuery));
-
-        $this->doctrineSoundRepo->expects($this->once())
-            ->method('createQueryBuilder')
-            ->with('s')
-            ->will($this->returnValue($mockQueryBuilder));
-
-        $soundRepo = new Repository\Sound($this->doctrineEntityManager);
-        $actual = $soundRepo->getConsumableSounds();
-        $this->assertSame('foo', $actual);
-    }
 }

@@ -9,8 +9,8 @@ class SoundLocationsController extends Controller
 {
     public function retrieveAllAction()
     {
-        $repo = $this->get('soundvenirs_domain.sound_repository');
-        $sounds = $repo->getConsumableSounds();
+        $repo = $this->get('soundvenirs_domain.soundlocation_repository');
+        $sounds = $repo->getAll();
 
         $soundLocations = array();
         foreach ($sounds as $sound) {
