@@ -1,8 +1,7 @@
 {
   "name": "SoundvenirsWebapp",
   "namelower": "soundvenirs-webapp",
-  "version": "0.0.1",
-  "description": "The web application for Soundvenirs",
+1  "description": "The web application for Soundvenirs",
   "readme": "README.md",
   "devDependencies": {
     "grunt": "0.4.2",

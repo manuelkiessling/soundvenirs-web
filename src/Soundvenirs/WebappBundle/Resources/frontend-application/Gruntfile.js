@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                     'configFile': 'karma.conf.js',
                     'files': [
                         '<%= meta.jsFilesForTesting %>',
-                        '../public/js/app/<%= pkg.namelower %>-<%= pkg.version %>.js'
+                        '../public/js/app/<%= pkg.namelower %>.js'
                     ]
                 }
             },
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                     'configFile': 'karma.conf.js',
                     'files': [
                         '<%= meta.jsFilesForTesting %>',
-                        '../public/js/app/<%= pkg.namelower %>-<%= pkg.version %>.min.js'
+                        '../public/js/app/<%= pkg.namelower %>.min.js'
                     ]
                 }
             }
@@ -59,8 +59,8 @@ module.exports = function (grunt) {
 
         'concat': {
             'dist': {
-                'src': ['src/**/*.js'],
-                'dest': '../public/js/app/<%= pkg.namelower %>-<%= pkg.version %>.js'
+                'src': ['src/app.js', 'src/**/*.js'],
+                'dest': '../public/js/app/<%= pkg.namelower %>.js'
             }
         },
 
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
             },
             'dist': {
                 'files': {
-                    '../public/js/app/<%= pkg.namelower %>-<%= pkg.version %>.min.js': ['../public/js/app/<%= pkg.namelower %>-<%= pkg.version %>.js']
+                    '../public/js/app/<%= pkg.namelower %>.min.js': ['../public/js/app/<%= pkg.namelower %>.js']
                 }
             }
         },

@@ -1,6 +1,5 @@
 {
     "name": "soundvenirs-webapp",
-    "version": "0.0.1",
     "dependencies": {
         "angular":          "1.2.19",
         "angular-route":    "1.2.19",
