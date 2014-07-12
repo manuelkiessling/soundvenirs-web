@@ -31,13 +31,14 @@ webapp:
 webapp-test:
 	cd src/Soundvenirs/WebappBundle/Resources/frontend-application ; grunt test
 
-server:
-	php -S 0.0.0.0:8080 -t web/
-
-test:
+backend-test:
 	php bin/console cache:clear --env test
 	./vendor/phpunit/phpunit/phpunit
-	make webapp-test
+
+test: backend-test webapp-test
+
+server:
+	php -S 0.0.0.0:8080 -t web/
 
 travisci-packages:
 	sudo apt-get update -qq
