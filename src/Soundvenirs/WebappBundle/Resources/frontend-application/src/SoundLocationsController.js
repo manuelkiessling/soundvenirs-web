@@ -3,7 +3,7 @@
  *
  * @see services
  */
-angular.module('SoundvenirsApp')
+angular.module('soundvenirsWebapp')
     .controller('SoundLocationsController', function ($scope, SoundLocationsService) {
         SoundLocationsService.getAll().then(function(soundLocations) {
             $scope.soundLocations = soundLocations;

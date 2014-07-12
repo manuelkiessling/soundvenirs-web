@@ -10,8 +10,8 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/app/hello/Fabien');
+        $crawler = $client->request('GET', '/app/#/');
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+        $this->assertTrue($crawler->filter('#soundvenirs-app-container')->count() === 1);
     }
 }

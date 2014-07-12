@@ -1,6 +1,6 @@
 default: development server
 
-development: dependencies assets dev-migrations test-migrations
+development: dependencies webapp assets dev-migrations test-migrations
 
 production: dependencies assets prod-migrations
 	php bin/console cache:clear --env prod
@@ -25,12 +25,19 @@ test-migrations:
 assets:
 	php bin/console assets:install
 
+webapp:
+	cd src/Soundvenirs/WebappBundle/Resources/frontend-application ; grunt concat:dist ; grunt copy
+
+webapp-test:
+	cd src/Soundvenirs/WebappBundle/Resources/frontend-application ; grunt test
+
 server:
 	php -S 0.0.0.0:8080 -t web/
 
 test:
 	php bin/console cache:clear --env test
 	./vendor/phpunit/phpunit/phpunit
+	make webapp-test
 
 travisci-packages:
 	sudo apt-get update -qq

@@ -1,3 +1,7 @@
 soundvenirs_webapp_homepage:
-    path:     /hello/{name}
+    path:     /
     defaults: { _controller: SoundvenirsWebappBundle:Default:index }
+
+soundvenirs_webapp_appconfig:
+    path:     /appconfig.js
+    defaults: { _controller: SoundvenirsWebappBundle:Default:appconfig }

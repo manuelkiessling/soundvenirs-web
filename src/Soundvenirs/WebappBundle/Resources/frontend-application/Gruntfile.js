@@ -2,6 +2,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-jsdoc');
@@ -55,6 +56,14 @@ module.exports = function (grunt) {
 
         'jshint': {
             'beforeconcat': ['src/**/*.js']
+        },
+
+        copy: {
+            main: {
+                files: [
+                    {expand: true, src: ['partials/**'], dest: '../public/js/app/'}
+                ]
+            }
         },
 
         'concat': {

@@ -1,7 +1,19 @@
 /**
- * Setup of main AngularJS application, with Restangular being defined as a dependency.
+ * Setup of main AngularJS application
  *
- * @see controllers
- * @see services
+ * @see SoundLocationsController
  */
-angular.module('SoundvenirsApp', ['restangular']);
+
+var soundvenirsWebapp = angular.module('soundvenirsWebapp', ['ngRoute', 'restangular']);
+
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
+
+soundvenirsWebapp.config(['$routeProvider',
+    function($routeProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + 'partials/soundLocations.html',
+                controller: 'SoundLocationsController'
+            });
+    }]);

@@ -1,1 +1,24 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/soundvenirswebapp/js/vendor/jquery/dist/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/soundvenirswebapp/js/vendor/angular/angular.js') }}"></script>
+    <script src="{{ asset('bundles/soundvenirswebapp/js/vendor/angular-route/angular-route.js') }}"></script>
+    <script src="{{ asset('bundles/soundvenirswebapp/js/vendor/angular-sanitize/angular-sanitize.js') }}"></script>
+    <script src="{{ asset('bundles/soundvenirswebapp/js/vendor/restangular/dist/restangular.js') }}"></script>
+    <script src="{{ asset('bundles/soundvenirswebapp/js/vendor/lodash/dist/lodash.js') }}"></script>
+
+    <script src="{{ asset('bundles/soundvenirswebapp/js/app/soundvenirs-webapp.js') }}"></script>
+    <script src="{{ path('soundvenirs_webapp_appconfig') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="soundvenirs-app-container" ng-app="soundvenirsWebapp">
+        <div ng-view></div>
+    </div>
+{% endblock %}

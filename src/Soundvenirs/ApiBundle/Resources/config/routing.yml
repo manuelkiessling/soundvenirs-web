@@ -1,3 +1,6 @@
+soundvenirs_api_base:
+    path:     /
+
 soundvenirs_api_sounds_retrieve_one:
     path:     /sounds/{id}
     defaults: { _controller: SoundvenirsApiBundle:Sounds:retrieveOne }
