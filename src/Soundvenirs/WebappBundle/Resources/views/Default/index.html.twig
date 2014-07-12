@@ -17,8 +17,7 @@
     <script src="{{ path('soundvenirs_webapp_appconfig') }}"></script>
 {% endblock %}
 
+{% set ng_app = 'soundvenirsWebapp' %}
 {% block body %}
-    <div id="soundvenirs-app-container" ng-app="soundvenirsWebapp">
-        <div ng-view></div>
-    </div>
+    <div ng-view></div>
 {% endblock %}

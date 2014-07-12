@@ -144,7 +144,10 @@ At the unit test level, external dependencies like databases (backend) or API en
 functional and end-to-end level, nothing is simulated.
 
 In order to execute the Symfony2 PHP backend unit and functional tests, run `make backend-test`. In order to execute
-the AngularJS frontend unit tests, run `make webapp-test`. In order to execute both test suites, run `make test`.
+the AngularJS frontend unit tests, run `make webapp-test`. In order to execute the End-to-End test suite, run
+`make e2e-test`.
+
+In order to execute all three test suites, run `make test`.
 
 
 ## Setting up the production server environment

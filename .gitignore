@@ -12,3 +12,4 @@
 .idea/
 dev.sqlite3
 test.sqlite3
+node_modules/

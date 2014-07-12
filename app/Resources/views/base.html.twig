@@ -6,7 +6,12 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body
+        {% if ng_app is defined %}
+            ng-app="{{ ng_app | escape('html_attr') }}"
+        {% endif %}
+        >
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

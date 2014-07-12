@@ -6,7 +6,9 @@ production: dependencies assets prod-migrations
 	php bin/console cache:clear --env prod
 
 dependencies: php-dependencies
+	npm install
 	cd src/Soundvenirs/HomepageBundle ; bower install --allow-root
+	cd src/Soundvenirs/WebappBundle/Resources/frontend-application ; npm install ; bower install --allow-root
 
 php-dependencies:
 	composer install --no-interaction --quiet
@@ -35,10 +37,16 @@ backend-test:
 	php bin/console cache:clear --env test
 	./vendor/phpunit/phpunit/phpunit
 
-test: backend-test webapp-test
+e2e-test:
+	./node_modules/protractor/bin/protractor protractor.conf.js
+
+test: backend-test webapp-test e2e-test
 
 server:
 	php -S 0.0.0.0:8080 -t web/
+
+ghostdriver:
+	./node_modules/phantomjs/bin/phantomjs --webdriver=9515
 
 travisci-packages:
 	sudo apt-get update -qq

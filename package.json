@@ -1,0 +1,10 @@
+{
+  "name": "SoundvenirsWeb",
+  "namelower": "soundvenirs-web",
+  "description": "Web backend and frontend for Soundvenirs",
+  "readme": "README.md",
+  "devDependencies": {
+    "phantomjs": "^1.9.7-14",
+    "protractor": "^1.0.0-rc4"
+  }
+}
