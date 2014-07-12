@@ -1,6 +1,59 @@
-# Soundvenirs Website and Webservice API
+# Soundvenirs Homepage, Web App, and Webservice API
 
 [![Build Status](https://travis-ci.org/manuelkiessling/soundvenirs-backend.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenirs-backend)
+
+
+## Architecture
+
+### The big picture
+
+                 +------------+ +---------------------------+
+                 |            | |                           |
+                 |            | |         Web App           |
+                 |            | |                           |
+                 |            | +---------------------------+
+                 |  Homepage  |                              
+                 |            | +---------------------------+
+    +------------+            | |                           |
+    |            |            | |      Webservice API       |
+    |  +--------->            | |                           |
+    |  |         +------+-----+ +--------------+------------+
+    |  |                |                      |             
+    |  |         +------v----------------------v------------+
+    |  |         |                                          |
+    |  |         |                 Domain                   |
+    |  |         |                                          |
+    |  |         +---------+----^------------+----^---------+
+    |  |                   |    |            |    |          
+    |  |              +----v----+----+  +----v----+----+     
+    |  |              |              |  |              |     
+    |  +--------------+              |  |              |     
+    |                 |  File Store  |  |   Database   |     
+    +----------------->              |  |              |     
+                      |              |  |              |     
+                      +--------------+  +--------------+     
+
+### Components of the architecture
+
+This repository contains the code for the Soundvenirs homepage, the web application, the webservice API, and the
+centralized domain (or "business") logic:
+
+    Component         In Module                        Accessible at
+    ----------------------------------------------------------------
+    Homepage          Soundvenirs\HomepageBundle       /
+    Web App           Soundvenirs\WebappBundle         /app/#/
+    Webservice API    Soundvenirs\ApiBundle            /api/
+    Domain            Soundvenirs\DomainBundle         -
+
+The framework used to provide these components is Symfony2, and the Web App component provides a AngularJS frontend
+application.
+
+Each component lives in its own Symfony2 module. External dependencies are managed through Composer (for the PHP
+backend) and Bower (for the JavaScript frontends).
+
+Development, test and build tasks are managed through `make` (for the PHP backend) and Grunt (for the AngularJS
+frontend).
+
 
 ## Working on the project
 
@@ -50,7 +103,48 @@ This is achieved by simply running
 
     make
 
-You will now have a development web server running at http://localhost:8080/
+You will now have a development web server running at `localhost:8080`. Visit http://localhost:8080/app_dev.php/
+
+
+## Test architecture, workflow, and tools
+
+This project is developed in a fully test-driven manner, with tests at every layer:
+
+    +-----------------------------------------+
+    |                                         |
+    |       Protractor End-to-End Tests       |
+    |                                         |
+    +-----------------------------------------+
+                                               
+    +------------------+                       
+    |                  |                       
+    | Symfony2         |                       
+    | Functional Tests |                       
+    |                  |                       
+    +------------------+                       
+                                               
+    +------------------+   +------------------+
+    |                  |   |                  |
+    | Symfony2         |   | Angular          |
+    | Unit tests       |   | Unit tests       |
+    |                  |   |                  |
+    +------------------+   +------------------+
+                                               
+         Backend                 Frontend      
+
+Both the Symfony2 PHP backend and the AngularJS JavaScript Frontend have a suite of unit tests that cover the
+functionality of low level application modules. The Symfony2 PHP backend also has a suite of functional tests that
+are implemented using the Symfony2 WebTestCase infrastructure and cover the functionality of the backend request
+controllers.
+
+A Protractor-based end-to-end test setup is used to verify the functionality of the fully integrated system from a browser's
+point of view.
+
+At the unit test level, external dependencies like databases (backend) or API endpoints (frontend) are mocked. On the
+functional and end-to-end level, nothing is simulated.
+
+In order to execute the Symfony2 PHP backend unit and functional tests, run `make backend-test`. In order to execute
+the AngularJS frontend unit tests, run `make webapp-test`. In order to execute both test suites, run `make test`.
 
 
 ## Setting up the production server environment
