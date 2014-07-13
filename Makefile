@@ -54,7 +54,7 @@ travisci-packages:
 	npm install -g grunt-cli
 	npm install -g bower
 
-travisci-before-script: travisci-packages php-dependencies assets test-migrations
+travisci-before-script: travisci-packages dependencies webapp assets test-migrations
 	./node_modules/phantomjs/bin/phantomjs --webdriver=9515 &
 	php -S 0.0.0.0:8080 -t web/ &
 
