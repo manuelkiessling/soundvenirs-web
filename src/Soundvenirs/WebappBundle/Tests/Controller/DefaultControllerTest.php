@@ -12,6 +12,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/app/#/');
 
-        $this->assertTrue($crawler->filter('#soundvenirs-app-container')->count() === 1);
+        $this->assertTrue($crawler->filter('.ng-view')->count() === 1);
     }
 }
