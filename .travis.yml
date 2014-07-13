@@ -3,7 +3,7 @@ env:
   - secure: "qVx+TWj1fmArNi0QuUzd9qhqDJOOcvMRjTBxJDRQbDTC7Pg1Sm22qOIx3UmudxaTNoNmIexJ9sokOeM4mYuc+f+ndA642d0fGxDOCUDxR2dbZbakPgjGLaNxnDCHnEEIIZzPHIqCBKkpz1NQnSJTh9Ihi67FFNemvG9hJRXWMpM="
 language: php
 php:
-- 5.3
+- 5.4
 branches:
   only:
   - master
