@@ -2,7 +2,7 @@ default: development server
 
 development: dependencies webapp assets dev-migrations test-migrations
 
-production: dependencies assets prod-migrations
+production: dependencies webapp assets prod-migrations
 	php bin/console cache:clear --env prod
 
 dependencies: php-dependencies
