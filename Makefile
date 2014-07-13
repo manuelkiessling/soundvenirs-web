@@ -53,9 +53,10 @@ travisci-packages:
 	sudo apt-get install php5-sqlite php5-gd sqlite3
 
 travisci-before-script: travisci-packages php-dependencies assets test-migrations
+	./node_modules/phantomjs/bin/phantomjs --webdriver=9515 &
+	php -S 0.0.0.0:8080 -t web/ &
 
-travisci-script:
-	./vendor/phpunit/phpunit/phpunit
+travisci-script: test
 	./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./src
 
 travisci-after-success:
