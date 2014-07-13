@@ -130,7 +130,7 @@ This project is developed in a fully test-driven manner, with tests at every lay
     |                  |   |                  |
     +------------------+   +------------------+
                                                
-         Backend                 Frontend      
+          Backend                Frontend      
 
 Both the Symfony2 PHP backend and the AngularJS JavaScript Frontend have a suite of unit tests that cover the
 functionality of low level application modules. The Symfony2 PHP backend also has a suite of functional tests that
