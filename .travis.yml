@@ -12,3 +12,5 @@ before_script:
 - make travisci-before-script
 script:
 - make travisci-script
+after_success:
+- make travisci-after-success
