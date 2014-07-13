@@ -51,8 +51,8 @@ ghostdriver:
 travisci-packages:
 	sudo apt-get update -qq
 	sudo apt-get install php5-sqlite php5-gd sqlite3
-	sudo /usr/bin/env npm install -g grunt-cli
-	sudo /usr/bin/env npm install -g bower
+	npm install -g grunt-cli
+	npm install -g bower
 
 travisci-before-script: travisci-packages php-dependencies assets test-migrations
 	./node_modules/phantomjs/bin/phantomjs --webdriver=9515 &
