@@ -42,6 +42,9 @@ e2e-test:
 
 test: backend-test webapp-test e2e-test
 
+codesniffer:
+	./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./src --extensions=php
+
 server:
 	php -S 0.0.0.0:8080 -t web/
 
@@ -58,8 +61,7 @@ travisci-before-script: travisci-packages dependencies webapp assets test-migrat
 	./node_modules/phantomjs/bin/phantomjs --webdriver=9515 &
 	php -S 0.0.0.0:8080 -t web/ &
 
-travisci-script: test
-	./vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=PSR2 ./src
+travisci-script: test codesniffer
 
 travisci-after-success:
 	bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-backend/builds/${TRAVIS_BUILD_ID}
