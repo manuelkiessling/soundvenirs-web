@@ -1,6 +1,6 @@
 describe('Webapp SoundLocations', function() {
-    it('should have a title', function() {
+    it('should bootstrap the app', function() {
         browser.get('http://localhost:8080/app_test.php/app/#/');
-        expect(browser.getTitle()).toEqual('Soundvenirs');
+        expect(element(by.css('body')).getAttribute('ng-app')).toBe('soundvenirsWebapp');
     });
 });

@@ -37,7 +37,7 @@ backend-test:
 	php bin/console cache:clear --env test
 	./vendor/phpunit/phpunit/phpunit
 
-e2e-test:
+e2e-test: webapp assets
 	./node_modules/protractor/bin/protractor protractor.conf.js
 
 test: backend-test webapp-test e2e-test
