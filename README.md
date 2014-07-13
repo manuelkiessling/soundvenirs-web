@@ -147,7 +147,8 @@ In order to execute the Symfony2 PHP backend unit and functional tests, run `mak
 the AngularJS frontend unit tests, run `make webapp-test`. In order to execute the End-to-End test suite, run
 `make e2e-test`.
 
-In order to execute all three test suites, run `make test`.
+In order to execute all three test suites, run `make test`. Please note that for the End-to-End tests to succeed, the
+web server (`make server`) and the PhantomJS GhostDriver (`make ghostdriver`) need to be running.
 
 
 ## Setting up the production server environment
