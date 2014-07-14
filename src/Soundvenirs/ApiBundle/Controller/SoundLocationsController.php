@@ -10,19 +10,17 @@ class SoundLocationsController extends Controller
     public function retrieveAllAction()
     {
         $repo = $this->get('soundvenirs_domain.soundlocation_repository');
-        $sounds = $repo->getAll();
+        $soundLocations = $repo->getAll();
 
-        $soundLocations = array();
-        foreach ($sounds as $sound) {
-            $soundLocation = array();
-            $soundLocation['title'] = $sound->title;
-            $soundLocation['location'] = array(
-                'lat' => $sound->lat,
-                'long' => $sound->long
-            );
-            $soundLocations[] = $soundLocation;
+        $responseSoundLocations = array();
+        foreach ($soundLocations as $soundLocation) {
+            $responseSoundLocation = array();
+            $responseSoundLocation['title'] = $soundLocation->title;
+            $responseSoundLocation['lat'] = $soundLocation->lat;
+            $responseSoundLocation['long'] = $soundLocation->long;
+            $responseSoundLocations[] = $responseSoundLocation;
         }
 
-        return new JsonResponse($soundLocations);
+        return new JsonResponse($responseSoundLocations);
     }
 }

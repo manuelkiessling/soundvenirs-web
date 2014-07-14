@@ -37,8 +37,8 @@ class SoundsControllerTest extends WebTestCase
         $client->request('GET', '/api/sounds/ab12cd');
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '{"id":"ab12cd","title":"First Song","mp3url":"http:\/\/www.soundvenirs.com\/download\/ab12cd.mp3",'.
-            '"location":{"lat":11.1,"long":1.11}}',
+            '{"id":"ab12cd","title":"First Song","lat":11.1,"long":1.11,'.
+            '"mp3url":"http:\/\/www.soundvenirs.com\/download\/ab12cd.mp3"}',
             $content
         );
     }
@@ -108,8 +108,8 @@ class SoundsControllerTest extends WebTestCase
         $client->request('GET', '/api/sounds/'.$id);
         $content = $client->getResponse()->getContent();
         $this->assertEquals(
-            '{"id":"'.$id.'","title":"First Song","mp3url":"http:\/\/www.soundvenirs.com\/download\/'.$id.'.mp3",'.
-            '"location":{"lat":56.2,"long":6}}',
+            '{"id":"'.$id.'","title":"First Song","lat":56.2,"long":6,'.
+            '"mp3url":"http:\/\/www.soundvenirs.com\/download\/'.$id.'.mp3"}',
             $content
         );
     }

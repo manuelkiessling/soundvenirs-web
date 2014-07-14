@@ -19,11 +19,10 @@ class SoundsController extends Controller
         $responseSound = array();
         $responseSound['id'] = $sound->id;
         $responseSound['title'] = $sound->title;
+        $responseSound['lat'] = $sound->lat;
+        $responseSound['long'] = $sound->long;
         $responseSound['mp3url'] = 'http://www.soundvenirs.com/download/' . $sound->id . '.mp3';
-        $responseSound['location'] = array(
-            'lat' => $sound->lat,
-            'long' => $sound->long
-        );
+
         return new JsonResponse($responseSound);
     }
 
