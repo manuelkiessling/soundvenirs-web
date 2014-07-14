@@ -1,6 +1,11 @@
-# Soundvenirs Homepage, Web App, and Webservice API
+# Soundvenirs Web
 
-[![Build Status](https://travis-ci.org/manuelkiessling/soundvenirs-backend.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenirs-backend)
+Homepage, Web App, and Webservice API for the Soundvenirs project.
+
+
+## Build status
+
+[![Build Status](https://travis-ci.org/manuelkiessling/soundvenirs-web.png?branch=master)](https://travis-ci.org/manuelkiessling/soundvenirs-web)
 
 
 ## Architecture
@@ -69,6 +74,7 @@ Your local development environment needs to have the following software installe
 * make
 * composer
 * Node.js >= 0.10.28 with NPM >= 1.3.11
+* Grunt
 * Bower
 
 ### Installing the requirements
@@ -87,6 +93,7 @@ X and use Homebrew. We are going to use the most recent stable version available
     make
     sudo make install
 
+    sudo npm install -g grunt-cli
     sudo npm install -g bower
 
     curl -sS https://getcomposer.org/installer | php
@@ -94,8 +101,8 @@ X and use Homebrew. We are going to use the most recent stable version available
 
 ### Getting the project sources
 
-    git clone https://github.com/manuelkiessling/soundvenirs-backend.git
-    cd soundvenirs-backend
+    git clone https://github.com/manuelkiessling/soundvenirs-web.git
+    cd soundvenirs-web
 
 ### Setting up the project and starting a dev server
 
@@ -184,6 +191,7 @@ I'm pretty sure it works with more recent versions of Ubuntu, but I haven't veri
     make
     sudo make install
 
+    sudo npm install -g grunt-cli
     sudo npm install -g bower
 
     curl -sS https://getcomposer.org/installer | php
@@ -203,7 +211,7 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
         charset utf-8;
         client_max_body_size 20M;
 
-        root /opt/soundvenirs-backend/web;
+        root /opt/soundvenirs-web/web;
         index index.php;
 
         location ~ \.php$ {
@@ -224,20 +232,20 @@ Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
 
 Then run
 
-    sudo mkdir -p /opt/soundvenirs-backend
-    sudo mkdir -p /var/log/soundvenirs-backend
-    sudo mkdir -p /var/lib/soundvenirs-backend/cache
-    sudo mkdir -p /var/lib/soundvenirs-backend/db
-    sudo mkdir -p /var/lib/soundvenirs-backend/soundfiles
+    sudo mkdir -p /opt/soundvenirs-web
+    sudo mkdir -p /var/log/soundvenirs-web
+    sudo mkdir -p /var/lib/soundvenirs-web/cache
+    sudo mkdir -p /var/lib/soundvenirs-web/db
+    sudo mkdir -p /var/lib/soundvenirs-web/soundfiles
 
     cd /opt
-    sudo git clone https://github.com/manuelkiessling/soundvenirs-backend.git
-    cd soundvenirs-backend
+    sudo git clone https://github.com/manuelkiessling/soundvenirs-web.git
+    cd soundvenirs-web
     sudo make production
 
-    sudo chown -R www-data:www-data /var/log/soundvenirs-backend
-    sudo chown -R www-data:www-data /opt/soundvenirs-backend/var
-    sudo chown -R www-data:www-data /var/lib/soundvenirs-backend
+    sudo chown -R www-data:www-data /var/log/soundvenirs-web
+    sudo chown -R www-data:www-data /opt/soundvenirs-web/var
+    sudo chown -R www-data:www-data /var/lib/soundvenirs-web
 
     sudo ln -s /etc/nginx/sites-available/soundvenirs.com /etc/nginx/sites-enabled/
     sudo service php5-fpm restart
@@ -252,7 +260,7 @@ access the website at http://www.soundvenirs.com/.
 The following describes the steps you must take in order to set up a Continuous Delivery workflow for the website and
 webservice API.
 
-As a result, every commit to the *master* branch of *git@github.com:manuelkiessling/soundvenirs-backend.git* that
+As a result, every commit to the *master* branch of *git@github.com:manuelkiessling/soundvenirs-web.git* that
 results in a successful TravisCI run will be released to the production server environment.
 
 ### The workflow
@@ -294,11 +302,11 @@ the project for this revision. If no failures occur, TravisCI will create a new 
 
 On the production server, a SimpleCD cronjob observes the repository - if a new release matching the
 *travisci-build-{BUILDNUMBER}* pattern is detected, then the revision of this release will be checked out and its
-content copied to the project folder at */opt/soundvenirs-backend*.
+content copied to the project folder at */opt/soundvenirs-web*.
 
 ### Setting up Continuous Delivery on the production server
 
     sudo apt-get install postfix mailutils
     cd /opt
     sudo git clone https://github.com/manuelkiessling/simplecd.git
-    sudo echo -e "MAILTO=\"\"\n* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-backend.git https://github.com/manuelkiessling/soundvenirs-backend/commit/" > /etc/cron.d/deploy-soundvenirs-backend
+    sudo echo -e "MAILTO=\"\"\n* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-web.git https://github.com/manuelkiessling/soundvenirs-web/commit/" > /etc/cron.d/deploy-soundvenirs-web

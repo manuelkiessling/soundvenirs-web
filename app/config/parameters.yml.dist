@@ -1,6 +1,6 @@
 parameters:
     database_driver:   pdo_sqlite
-    database_path:     /var/lib/soundvenirs-backend/db/
+    database_path:     /var/lib/soundvenirs-web/db/
     database_host:     127.0.0.1
     database_port:     ~
     database_name:     symfony
@@ -19,4 +19,4 @@ parameters:
     debug_redirects:        false
     use_assetic_controller: true
 
-    soundfiles_path: /var/lib/soundvenirs-backend/soundfiles/
+    soundfiles_path: /var/lib/soundvenirs-web/soundfiles/

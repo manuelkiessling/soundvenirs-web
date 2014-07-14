@@ -40,7 +40,7 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if ($this->environment === 'prod') {
-            return '/var/lib/soundvenirs-backend/cache';
+            return '/var/lib/soundvenirs-web/cache';
         } else {
             return parent::getCacheDir();
         }
@@ -49,7 +49,7 @@ class AppKernel extends Kernel
     public function getLogDir()
     {
         if ($this->environment === 'prod') {
-            return '/var/log/soundvenirs-backend';
+            return '/var/log/soundvenirs-web';
         } else {
             return parent::getLogDir();
         }

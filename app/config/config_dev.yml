@@ -37,7 +37,7 @@ assetic:
 
 doctrine:
     dbal:
-        path: "/var/tmp/soundvenirs-backend.%kernel.environment%.sqlite3"
+        path: "/var/tmp/soundvenirs-web.%kernel.environment%.sqlite3"
 
 soundvenirs_homepage:
     soundfiles_path: "/var/tmp/"

@@ -2,10 +2,10 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PATH
 
-rsync -ac --stats $2/ /opt/soundvenirs-backend/ || exit 1
-chown -R www-data:www-data /opt/soundvenirs-backend/var || exit 1
+rsync -ac --stats $2/ /opt/soundvenirs-web/ || exit 1
+chown -R www-data:www-data /opt/soundvenirs-web/var || exit 1
 
-cd /opt/soundvenirs-backend/
+cd /opt/soundvenirs-web/
 make production || exit 1
-chown -R www-data:www-data /var/lib/soundvenirs-backend || exit 1
-chown -R www-data:www-data /var/log/soundvenirs-backend || exit 1
+chown -R www-data:www-data /var/lib/soundvenirs-web || exit 1
+chown -R www-data:www-data /var/log/soundvenirs-web || exit 1
