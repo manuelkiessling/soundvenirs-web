@@ -16,9 +16,9 @@ Homepage, Web App, and Webservice API for the Soundvenirs project.
                  |            | |                           |
                  |            | |         Web App           |
                  |            | |                           |
-                 |            | +---------------------------+
-                 |  Homepage  |                              
-                 |            | +---------------------------+
+                 |            | +--------------+------------+
+                 |  Homepage  |                |             
+                 |            | +--------------v------------+
     +------------+            | |                           |
     |            |            | |      Webservice API       |
     |  +--------->            | |                           |
