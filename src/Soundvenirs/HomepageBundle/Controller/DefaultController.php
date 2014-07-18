@@ -24,6 +24,9 @@ class DefaultController extends Controller
             ->add('soundfile', 'file');
         $form->submit($request);
         $files = $request->files->get($form->getName());
+        if (!array_key_exists('soundfile', $files) || !is_object($files['soundfile'])) {
+            return new Response('You must provide a file.', 400);
+        }
         $soundfile = $files['soundfile'];
         $data = $form->getData();
         $title = $data['title'];

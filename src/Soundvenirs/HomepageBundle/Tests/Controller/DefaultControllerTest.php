@@ -41,6 +41,17 @@ class DefaultControllerTest extends WebTestCase
         unlink($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->id . '.mp3');
     }
 
+    public function testUploadWithoutFile()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+        $uploadForm = $crawler->selectButton('Upload')->form();
+                $uploadForm['form[title]'] = 'First Song';
+        $client->submit($uploadForm);
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
     public function testQrCode()
     {
         $client = static::createClient();
