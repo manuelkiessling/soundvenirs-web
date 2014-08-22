@@ -36,9 +36,9 @@
             mobile app. Now visitors at the target location will be
             able to scan the code and listen to your sound.
         </div>
-        <form id="form" action="{{ path('soundvenirs_homepage_upload') }}" method="post" enctype="multipart/form-data">
+        <form id="upload_form" action="{{ path('soundvenirs_homepage_upload') }}" method="post" enctype="multipart/form-data">
             {{ form_widget(form) }}
-            <input type="submit" value="Upload">
+            <input id="form_submit" type="submit" value="Upload">
         </form>
     </div>
 {% endblock %}

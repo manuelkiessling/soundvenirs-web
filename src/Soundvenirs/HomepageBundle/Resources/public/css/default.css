@@ -55,7 +55,7 @@ html, body {
     color: #000;
 }
 
-#form {
+#form, #form_submit {
     margin: 0;
     padding: 0;
     visibility: hidden;
