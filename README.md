@@ -310,3 +310,15 @@ content copied to the project folder at */opt/soundvenirs-web*.
     cd /opt
     sudo git clone https://github.com/manuelkiessling/simplecd.git
     sudo echo -e "MAILTO=\"\"\n* * * * * root /opt/simplecd/simplecd.sh tag travisci-build-* https://github.com/manuelkiessling/soundvenirs-web.git https://github.com/manuelkiessling/soundvenirs-web/commit/" > /etc/cron.d/deploy-soundvenirs-web
+
+
+## Development workflow
+
+### Updating backend dependencies
+
+* Consider running `composer self-update` in order to work with the latest version
+* Change *composer.json* if neccessary
+* Run `composer update`
+* Run `make test` to verify that the updates didn't break the application
+* Commit the updated *composer.lock* file and other changes related to the update (and only those!)
+  to the repository - add the composer update output to the commit message
