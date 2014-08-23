@@ -11,7 +11,7 @@ dependencies: php-dependencies
 	cd src/Soundvenirs/WebappBundle/Resources/frontend-application ; npm install ; bower install --allow-root
 
 php-dependencies:
-	composer install --no-interaction --quiet
+	composer install --no-interaction
 
 migrations: dev-migrations test-migrations
 
