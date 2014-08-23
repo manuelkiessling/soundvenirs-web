@@ -70,7 +70,7 @@ Your local development environment needs to have the following software installe
 
 * Git
 * sqlite3
-* PHP >= 5.3.3 with gd and sqlite support
+* PHP >= 5.3.3 with gd, curl and sqlite support
 * make
 * composer
 * Node.js >= 0.10.28 with NPM >= 1.3.11
@@ -170,6 +170,7 @@ and webservice API to be served from this environment.
 * sqlite3
 * php5-fpm
 * php5-gd
+* php5-curl
 * php5-sqlite
 * composer
 * npm >= 1.3.11
@@ -182,7 +183,7 @@ I'm pretty sure it works with more recent versions of Ubuntu, but I haven't veri
 
     cd
 
-    sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-sqlite
+    sudo apt-get install git nginx sqlite3 php5-cli php5-fpm php5-gd php5-curl php5-sqlite
 
     wget http://nodejs.org/dist/v0.10.29/node-v0.10.29.tar.gz
     tar xvfz node-v0.10.29.tar.gz
