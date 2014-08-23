@@ -31,15 +31,15 @@ class SoundLocationTest extends \PHPUnit_Framework_TestCase
     public function testGetAll()
     {
         $sound1 = new Sound();
-        $sound1->id = 'abcdef';
-        $sound1->title = 'Foo Bar';
-        $sound1->lat = 11.1;
-        $sound1->long = 1.11;
+        $sound1->setId('abcdef');
+        $sound1->setTitle('Foo Bar');
+        $sound1->setLat(11.1);
+        $sound1->setLong(1.11);
         $sound2 = new Sound();
-        $sound2->id = 'ghijkl';
-        $sound2->title = 'Woomp';
-        $sound2->lat = 22.2;
-        $sound2->long = 2.22;
+        $sound2->setId('ghijkl');
+        $sound2->setTitle('Woomp');
+        $sound2->setLat(22.2);
+        $sound2->setLat(2.22);
 
         $mockQuery = $this->getMock('stdClass', array('getResult'));
         $mockQuery->expects($this->once())

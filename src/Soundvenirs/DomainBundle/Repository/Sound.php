@@ -76,8 +76,8 @@ class Sound implements ObjectRepository, Selectable
         }
 
         $sound = new Entity\Sound();
-        $sound->id = $id;
-        $sound->title = $title;
+        $sound->setId($id);
+        $sound->setTitle($title);
         return $sound;
     }
 

@@ -31,8 +31,8 @@ class SoundTest extends \PHPUnit_Framework_TestCase
     {
         $soundRepo = new Repository\Sound($this->doctrineEntityManager);
         $sound = $soundRepo->create('foo');
-        $this->assertRegExp('/^[0-9a-z]{1,6}$/', $sound->id);
-        $this->assertSame('foo', $sound->title);
+        $this->assertRegExp('/^[0-9a-z]{1,6}$/', $sound->getId());
+        $this->assertSame('foo', $sound->getTitle());
     }
 
     public function testPersist()

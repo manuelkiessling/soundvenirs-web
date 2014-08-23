@@ -25,10 +25,10 @@ class SoundLocation
         $sounds = $query->getResult();
         foreach ($sounds as $sound) {
             $soundLocation = new Entity\SoundLocation();
-            $soundLocation->id = $sound->id;
-            $soundLocation->title = $sound->title;
-            $soundLocation->lat = $sound->lat;
-            $soundLocation->long = $sound->long;
+            $soundLocation->id = $sound->getId();
+            $soundLocation->title = $sound->getTitle();
+            $soundLocation->lat = $sound->getLat();
+            $soundLocation->long = $sound->getLong();
             $soundLocations[] = $soundLocation;
         }
         return $soundLocations;

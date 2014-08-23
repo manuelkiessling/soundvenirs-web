@@ -34,11 +34,11 @@ class DefaultControllerTest extends WebTestCase
         $sounds = $repo->findAll();
         $sound = $sounds[0];
 
-        $this->assertEquals('First Song', $sound->title);
+        $this->assertEquals('First Song', $sound->getTitle());
         $this->assertTrue(
-            file_exists($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->id . '.mp3')
+            file_exists($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->getId() . '.mp3')
         );
-        unlink($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->id . '.mp3');
+        unlink($container->getParameter('soundvenirs_homepage.soundfiles_path') . $sound->getId() . '.mp3');
     }
 
     public function testUploadWithoutFile()
@@ -73,7 +73,7 @@ class DefaultControllerTest extends WebTestCase
         $sounds = $repo->findAll();
         $sound = $sounds[0];
 
-        $client->request('GET', '/download/'.$sound->id.'.mp3');
+        $client->request('GET', '/download/'.$sound->getId().'.mp3');
         $this->assertEquals('foo', $client->getResponse()->getContent());
 
         $client->request('GET', '/download/a.mp3');

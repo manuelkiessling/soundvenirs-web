@@ -21,24 +21,24 @@ class SoundLocationsControllerTest extends WebTestCase
         $soundRepo = $container->get('soundvenirs_domain.sound_repository');
 
         $sound = new Sound();
-        $sound->id = 'aaaaaa';
-        $sound->title = 'First Song';
-        $sound->lat = 11.1;
-        $sound->long = 1.11;
+        $sound->setId('aaaaaa');
+        $sound->setTitle('First Song');
+        $sound->setLat(11.1);
+        $sound->setLong(1.11);
         $soundRepo->persist($sound);
 
         $sound = new Sound();
-        $sound->id = 'bbbbbb';
-        $sound->title = 'Second Song';
-        $sound->lat = 22.2;
-        $sound->long = 2.22;
+        $sound->setId('bbbbbb');
+        $sound->setTitle('Second Song');
+        $sound->setLat(22.2);
+        $sound->setLong(2.22);
         $soundRepo->persist($sound);
 
         $sound = new Sound();
-        $sound->id = 'cccccc';
-        $sound->title = 'Third Song';
-        $sound->lat = null;
-        $sound->long = null;
+        $sound->setId('cccccc');
+        $sound->setTitle('Third Song');
+        $sound->setLat(null);
+        $sound->setLong(null);
         $soundRepo->persist($sound);
 
         $client->request('GET', '/api/soundLocations');

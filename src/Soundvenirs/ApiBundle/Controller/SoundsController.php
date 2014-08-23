@@ -17,11 +17,11 @@ class SoundsController extends Controller
         }
 
         $responseSound = array();
-        $responseSound['id'] = $sound->id;
-        $responseSound['title'] = $sound->title;
-        $responseSound['lat'] = $sound->lat;
-        $responseSound['long'] = $sound->long;
-        $responseSound['mp3url'] = 'http://www.soundvenirs.com/download/' . $sound->id . '.mp3';
+        $responseSound['id'] = $sound->getId();
+        $responseSound['title'] = $sound->getTitle();
+        $responseSound['lat'] = $sound->getLat();
+        $responseSound['long'] = $sound->getLong();
+        $responseSound['mp3url'] = 'http://www.soundvenirs.com/download/' . $sound->getId() . '.mp3';
 
         return new JsonResponse($responseSound);
     }
@@ -36,7 +36,7 @@ class SoundsController extends Controller
         $sound = $soundRepo->create($title);
         $soundRepo->persist($sound);
 
-        return new JsonResponse(array('id' => $sound->id));
+        return new JsonResponse(array('id' => $sound->getId()));
     }
 
     public function updateAction($id)
@@ -48,7 +48,7 @@ class SoundsController extends Controller
             return new JsonResponse(null, 404);
         }
 
-        if ($sound->lat !== null) {
+        if ($sound->getLat() !== null) {
             return new JsonResponse(array('status' => false));
         }
 
@@ -57,8 +57,8 @@ class SoundsController extends Controller
         $lat = $params['lat'];
         $long = $params['long'];
 
-        $sound->lat = (float)$lat;
-        $sound->long = (float)$long;
+        $sound->setLat((float)$lat);
+        $sound->setLong((float)$long);
 
         $repo->persist($sound);
 

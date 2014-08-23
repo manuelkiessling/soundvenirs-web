@@ -28,10 +28,10 @@ class SoundsControllerTest extends WebTestCase
         $soundRepo = $container->get('soundvenirs_domain.sound_repository');
 
         $sound = new Sound();
-        $sound->id = 'ab12cd';
-        $sound->title = 'First Song';
-        $sound->lat = 11.1;
-        $sound->long = 1.11;
+        $sound->setId('ab12cd');
+        $sound->setTitle('First Song');
+        $sound->setLat(11.1);
+        $sound->setLong(1.11);
         $soundRepo->persist($sound);
 
         $client->request('GET', '/api/sounds/ab12cd');
@@ -73,7 +73,7 @@ class SoundsControllerTest extends WebTestCase
         $repo = $client->getContainer()->get('soundvenirs_domain.sound_repository');
         $sound = $repo->find($id);
 
-        $this->assertSame('First Song', $sound->title);
+        $this->assertSame('First Song', $sound->getTitle());
     }
 
     public function testSetSoundLocation()

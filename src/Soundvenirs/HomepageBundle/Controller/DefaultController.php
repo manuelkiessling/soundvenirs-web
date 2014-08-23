@@ -42,8 +42,8 @@ class DefaultController extends Controller
         $sound = $soundRepository->create($title);
         $soundRepository->persist($sound);
 
-        $soundfile->move($this->container->getParameter('soundvenirs_homepage.soundfiles_path'), $sound->id . '.mp3');
-        return $this->render('SoundvenirsHomepageBundle:Default:qrcode.html.twig', array('id' => $sound->id));
+        $soundfile->move($this->container->getParameter('soundvenirs_homepage.soundfiles_path'), $sound->getId() . '.mp3');
+        return $this->render('SoundvenirsHomepageBundle:Default:qrcode.html.twig', array('id' => $sound->getId()));
     }
 
     public function qrcodeAction($id)
