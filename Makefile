@@ -65,3 +65,6 @@ travisci-script: test codesniffer
 
 travisci-after-success:
 	bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-web/builds/${TRAVIS_BUILD_ID}
+
+commit: test codesniffer
+	git commit -a
