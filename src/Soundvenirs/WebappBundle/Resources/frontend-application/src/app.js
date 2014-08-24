@@ -6,7 +6,7 @@
 
 var soundvenirsWebapp = angular.module('soundvenirsWebapp', ['ngRoute', 'restangular', 'google-maps']);
 
-var scripts = document.getElementsByTagName("script")
+var scripts = document.getElementsByTagName("script");
 var currentScriptPath = scripts[scripts.length-1].src;
 
 soundvenirsWebapp.config(['$routeProvider',
