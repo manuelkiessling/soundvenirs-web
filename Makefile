@@ -67,4 +67,5 @@ travisci-after-success:
 	bash ./build/create-github-release.sh ${GITHUB_TOKEN} travisci-build-${TRAVIS_BUILD_NUMBER} ${TRAVIS_COMMIT} https://travis-ci.org/manuelkiessling/soundvenirs-web/builds/${TRAVIS_BUILD_ID}
 
 commit: test codesniffer
+	cd src/Soundvenirs/WebappBundle/Resources/frontend-application ; grunt jshint
 	git commit -a
