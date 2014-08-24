@@ -1,12 +1,13 @@
 {
-    "name": "soundvenirs-webapp",
-    "dependencies": {
-        "angular":          "1.2.19",
-        "angular-route":    "1.2.19",
-        "angular-sanitize": "1.2.19",
-        "angular-mocks":    "1.2.19",
-        "restangular":      "1.4.0",
-        "jquery":           "2.1.1"
-    },
-    "analytics": false
+  "name": "soundvenirs-webapp",
+  "dependencies": {
+    "angular": "1.2.19",
+    "angular-route": "1.2.19",
+    "angular-sanitize": "1.2.19",
+    "angular-mocks": "1.2.19",
+    "restangular": "1.4.0",
+    "jquery": "2.1.1",
+    "angular-google-maps": "~1.2.1"
+  },
+  "analytics": false
 }

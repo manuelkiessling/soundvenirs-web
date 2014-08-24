@@ -4,7 +4,7 @@
  * @see SoundLocationsController
  */
 
-var soundvenirsWebapp = angular.module('soundvenirsWebapp', ['ngRoute', 'restangular']);
+var soundvenirsWebapp = angular.module('soundvenirsWebapp', ['ngRoute', 'restangular', 'google-maps']);
 
 var scripts = document.getElementsByTagName("script")
 var currentScriptPath = scripts[scripts.length-1].src;

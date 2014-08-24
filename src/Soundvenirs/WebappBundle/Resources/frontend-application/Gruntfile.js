@@ -19,6 +19,9 @@ module.exports = function (grunt) {
                 '../public/js/vendor/angular-mocks/angular-mocks.js',
                 '../public/js/vendor/restangular/dist/restangular.js',
                 '../public/js/vendor/lodash/dist/lodash.js',
+                '../public/js/vendor/lodash/dist/lodash.underscore.js',
+                'http://maps.googleapis.com/maps/api/js?sensor=false&language=en',
+                '../public/js/vendor/angular-google-maps/dist/angular-google-maps.js',
                 'tests/**/*Spec.js'
             ]
         },
