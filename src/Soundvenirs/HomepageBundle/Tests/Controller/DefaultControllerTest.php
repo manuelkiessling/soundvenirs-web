@@ -82,4 +82,16 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/download/abcdefg.mp3');
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
+
+    public function testShortcut()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/s/abcdef');
+        $request = $client->getRequest();
+        $this->assertEquals(301, $client->getResponse()->getStatusCode());
+        $this->assertEquals(
+            'http://' . $request->getHttpHost() . '/download/abcdef.mp3',
+            $client->getResponse()->headers->get('location')
+        );
+    }
 }

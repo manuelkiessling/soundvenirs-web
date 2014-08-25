@@ -205,7 +205,7 @@ Set `listen` to `127.0.0.1:9001` in `/etc/php5/fpm/pool.d/www.conf`.
 Create `/etc/nginx/sites-available/soundvenirs.com` with the following content:
 
     server {
-        server_name www.soundvenirs.com soundvenirs.com;
+        server_name www.soundvenirs.com soundvenirs.com sndvnr.com;
         listen 80;
         access_log /var/log/nginx/soundvenirs.com.access.log;
         error_log /var/log/nginx/soundvenirs.com.error.log;

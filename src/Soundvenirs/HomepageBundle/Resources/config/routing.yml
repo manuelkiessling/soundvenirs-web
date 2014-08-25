@@ -17,3 +17,11 @@ soundvenirs_homepage_download:
     path:     /download/{id}.mp3
     defaults: { _controller: SoundvenirsHomepageBundle:Default:download }
     methods: [GET]
+
+soundvenirs_homepage_shortcut:
+    path:     /s/{id}
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: soundvenirs_homepage_download
+        permanent: true
+    methods: [GET]
