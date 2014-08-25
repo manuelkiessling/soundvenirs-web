@@ -5,12 +5,44 @@
  */
 angular.module('soundvenirsWebapp')
     .controller('SoundLocationsController', function ($scope, SoundLocationsService) {
+
+        $scope.showFindlocationInfo = true;
+
+        var geolocationFound = function (position) {
+            $scope.showFindlocationInfo = false;
+            $scope.map = {
+                center: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                },
+                zoom: 9
+            };
+            $scope.$apply();
+        };
+
+        var geolocationNotfound = function (error) {
+            $scope['show-findlocation-info'] = false;
+        };
+
+        if (navigator.geolocation) {
+            console.log('0');
+            navigator.geolocation.getCurrentPosition(
+                geolocationFound,
+                geolocationNotfound,
+                {
+                    enableHighAccuracy: true,
+                    maximumAge : 30000,
+                    timeout : 27000
+                }
+            );
+        }
+
         $scope.map = {
             center: {
-                latitude: 45.000,
-                longitude: -73.000
+                latitude: 23.3253854,
+                longitude: 8.0937441
             },
-            zoom: 8
+            zoom: 3
         };
 
         SoundLocationsService.getAll().then(function(soundLocations) {

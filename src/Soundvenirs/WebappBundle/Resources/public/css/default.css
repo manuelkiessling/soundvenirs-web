@@ -12,3 +12,21 @@ html, body, .angular-google-map-container, .angular-google-map {
     padding: 4px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
 }
+
+#soundvenirs-app-findlocation-info {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#soundvenirs-app-findlocation-info-text {
+    background-color: rgba(0, 0, 255, 0.75);
+    color: #fff;
+    font-family: Verdana;
+    padding: 16px;
+    position: absolute;
+    text-align: center;
+    top: 45%;
+    width: 100%;
+}
