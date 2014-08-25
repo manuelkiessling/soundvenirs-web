@@ -323,3 +323,10 @@ content copied to the project folder at */opt/soundvenirs-web*.
 * Run `make test` to verify that the updates didn't break the application
 * Commit the updated *composer.lock* file and other changes related to the update (and only those!)
   to the repository - add the composer update output to the commit message
+
+## Development guidelines
+
+### CSS
+
+* In order to avoid collisions in the future, every CSS identifier (IDs and classes) need to be prefixed
+  with `soundvenirs-`, followed by the short name of the current module (currently, `homepage` or `webapp`).
