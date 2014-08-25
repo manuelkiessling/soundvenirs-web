@@ -1,5 +1,21 @@
-<div ng-repeat="soundLocation in soundLocations">
-  {{ soundLocation.title }}
-  <br/>
-</div>
-<google-map center="map.center" zoom="map.zoom"></google-map>
+<google-map
+  center="map.center"
+  zoom="map.zoom"
+  draggable="true"
+  >
+  <div ng-repeat="soundLocation in soundLocations">
+    <marker
+      idKey="soundLocation.randomId"
+      coords="{
+                latitude: soundLocation.lat,
+                longitude: soundLocation.long
+            }"
+      >
+      <marker-label
+        content="soundLocation.title"
+        anchor="0 0"
+        class="soundvenirs-app-map-marker-label">
+      </marker-label>
+    </marker>
+  </div>
+</google-map>
